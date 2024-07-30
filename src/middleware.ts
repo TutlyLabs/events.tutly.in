@@ -15,8 +15,9 @@ export default auth((req) => {
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
+  const isCronRoute = nextUrl.pathname.startsWith("/cron");
 
-  if (isApiAuthRoute) {
+  if (isApiAuthRoute || isCronRoute) {
     return;
   }
 

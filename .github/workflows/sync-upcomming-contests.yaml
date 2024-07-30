@@ -1,0 +1,15 @@
+name: Sync Upcoming Contests
+
+on:
+  schedule:
+    - cron: "0 23 * * *" # 5:00am IST
+  workflow_dispatch:
+
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Daily cron job
+        run: |
+          curl --request POST \
+          --url 'https://events-tutly.vercel.app/cron/sync-upcomming-contests/' 
