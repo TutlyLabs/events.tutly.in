@@ -2,6 +2,7 @@
 import Navbar from "../navbar/Navbar";
 import Sidebar from "../sidebar/sidebar";
 import { RxDashboard } from "react-icons/rx";
+import { SiCodeforces } from "react-icons/si";
 import { Suspense, useState } from "react";
 import Loading from "@/app/(dashboard)/loading";
 import { User } from "@/types/user";
@@ -19,6 +20,11 @@ export default function HomeLayout({
       name: "Dashboard",
       icon: <RxDashboard />,
       path: "/",
+    },
+    {
+      name: "Contests",
+      icon: <SiCodeforces />,
+      path: "/testing",
     },
   ];
   return (
