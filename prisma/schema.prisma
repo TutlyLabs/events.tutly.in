@@ -2,10 +2,13 @@ generator client {
   provider = "prisma-client-js"
 }
 
+
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 
 enum Role {
   ADMIN
@@ -63,4 +66,16 @@ model Account {
   userId String @unique
 
   @@unique([provider, providerAccountId])
+}
+
+
+model Contests {
+  id    String  @id @default(uuid())
+  contest_id String @unique
+  name  String  
+  href  String  
+  host  String
+  startTime DateTime
+  endTime DateTime
+  duration Int
 }
