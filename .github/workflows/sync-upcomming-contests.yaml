@@ -2,7 +2,7 @@ name: Sync Upcoming Contests
 
 on:
   schedule:
-    - cron: "16 5 * * *" # 5:15am IST
+    - cron: "50 23 * * *" # 5:20am IST
 
 jobs:
   cron:
