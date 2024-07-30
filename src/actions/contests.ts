@@ -5,7 +5,7 @@ const host__iregex = platforms.join("|");
 const username = process.env.CLIST_USERNAME;
 const api_key = process.env.CLIST_API_KEY;
 
-export const requestAllContests = async () => {
+export const fetchAllContests = async () => {
   const url = `https://clist.by:443/api/v4/contest/?username=${username}&api_key=${api_key}&upcoming=true&start__gte=${new Date().toISOString()}&order_by=start&host__iregex=${host__iregex}`;
   const res = await fetch(url);
   const data = await res.json();
@@ -30,7 +30,19 @@ export const requestAllContests = async () => {
   return requiredData;
 };
 
-export const requestContestsByPlatform = async (platform: string) => {
+export const getAllContests = async () => {
+  const res = await db.contests.findMany({
+    where: {
+      startTime: {
+        gte: new Date().toISOString(),
+      },
+    },
+  });
+
+  return res;
+}
+
+export const getContestsByPlatform = async (platform: string) => {
   const res = await db.contests.findMany({
     where: {
       host: platform,

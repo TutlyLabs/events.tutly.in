@@ -1,10 +1,10 @@
-import { requestAllContests } from "@/actions/contests";
+import { getAllContests } from "@/actions/contests";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
 
   try {
-    const res = await requestAllContests();
+    const res = await getAllContests();
 
     return NextResponse.json(res);
   } catch (error: any) {
