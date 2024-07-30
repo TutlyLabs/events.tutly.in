@@ -1,18 +1,7 @@
 import { requestContestsByPlatform } from "@/actions/contests";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(
-  req: NextRequest,
-  {
-    params,
-  }: {
-    params: {
-      platform: string;
-    };
-  }
-) {
-
-
+export async function GET({ params }: { params: { platform: string } }) {
   try {
     const res = await requestContestsByPlatform(params.platform);
     return NextResponse.json(res);
