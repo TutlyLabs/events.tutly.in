@@ -1,10 +1,12 @@
+// middware is disabled for now
+
 import authConfig from "./auth.config";
 import NextAuth from "next-auth";
 import { NEXT_PUBLIC_SIGN_IN_URL } from "./utils/constants";
 import {
   apiAuthPrefix,
   authRoutes,
-  publicRoutes,
+  publicRoutes, 
   DEFAULT_LOGIN_REDIRECT,
 } from "@/routes";
 export const { auth } = NextAuth(authConfig);
