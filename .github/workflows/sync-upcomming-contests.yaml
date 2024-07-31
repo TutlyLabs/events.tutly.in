@@ -10,6 +10,5 @@ jobs:
     steps:
       - name: Daily cron job
         run: |
-          curl -L -X POST 'https://events-tutly.vercel.app/api/cron/sync-upcomming-contests' \
+          curl -L -X GET 'https://events-tutly.vercel.app/api/cron/sync-upcomming-contests?token=${{ secrets.CRON_JOB_SECRET }}' \
           -H "Content-Type: application/json"
-          -H "x-cron-job-secret: ${{ secrets.CRON_JOB_SECRET }}"
