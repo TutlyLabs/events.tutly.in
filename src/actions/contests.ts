@@ -1,8 +1,18 @@
 import { db } from "../lib/db";
 
-const platforms = ["codeforces.com", "codechef.com", "leetcode.com"];
+const platforms = [
+  "codeforces.com",
+  "codechef.com",
+  "leetcode.com",
+  "atcoder.jp",
+  "hackerearth.com",
+  "hackerrank.com",
+];
+
+
 const host__iregex = platforms.join("|");
 const username = process.env.CLIST_USERNAME;
+
 const api_key = process.env.CLIST_API_KEY;
 
 export const fetchAllContests = async () => {
@@ -40,7 +50,7 @@ export const getAllContests = async () => {
   });
 
   return res;
-}
+};
 
 export const getContestsByPlatform = async (platform: string) => {
   const res = await db.contests.findMany({
