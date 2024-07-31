@@ -3,6 +3,7 @@ name: Sync Upcoming Contests
 on:
   schedule:
     - cron: "0 22 * * *" # 4:00 AM IST
+  workflow_dispatch:
 
 jobs:
   cron:
