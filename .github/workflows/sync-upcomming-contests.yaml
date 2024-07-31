@@ -12,3 +12,4 @@ jobs:
         run: |
           curl -L -X POST 'https://events-tutly.vercel.app/api/cron/sync-upcomming-contests' \
           -H "Content-Type: application/json"
+          -H "x-cron-job-secret: ${{ secrets.CRON_JOB_SECRET }}"
