@@ -10,5 +10,5 @@ jobs:
     steps:
       - name: Daily cron job
         run: |
-          curl --request POST \
-          --url 'https://events-tutly.vercel.app/api/cron/sync-upcomming-contests/' 
+          curl -L -X POST 'https://events-tutly.vercel.app/api/cron/sync-upcomming-contests' \
+          -H "Content-Type: application/json"
