@@ -1,10 +1,11 @@
 "use client";
+import { Suspense, useState } from "react";
+import Loading from "@/app/(dashboard)/loading";
 import Navbar from "../navbar/Navbar";
 import Sidebar from "../sidebar/sidebar";
 import { RxDashboard } from "react-icons/rx";
 import { SiCodeforces } from "react-icons/si";
-import { Suspense, useState } from "react";
-import Loading from "@/app/(dashboard)/loading";
+import { PiCodeBold } from "react-icons/pi";
 import { User } from "@/types/user";
 
 export default function HomeLayout({
@@ -25,6 +26,11 @@ export default function HomeLayout({
       name: "Contests",
       icon: <SiCodeforces />,
       path: "/testing",
+    },
+    {
+      name: "Coding Profiles",
+      icon: <PiCodeBold />,
+      path: "/codingProfiles",
     },
   ];
   return (
