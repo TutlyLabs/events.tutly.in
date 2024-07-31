@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { GoDotFill } from "react-icons/go";
 import { FcClock } from "react-icons/fc";
 
 const hostLogos: { [key: string]: string } = {
@@ -10,7 +11,7 @@ const hostLogos: { [key: string]: string } = {
   "codechef.com": "https://i.postimg.cc/66mCJkcW/image.png",
   "atcoder.jp": "https://i.postimg.cc/SjbsQfjr/image.png",
   "hackerearth.com": "https://i.postimg.cc/x85jvJRG/image.png",
-  "hackerrank.com": "https://i.postimg.cc/t4ZyTmLN/image.png",
+  "geeksforgeeks.org": "https://i.postimg.cc/hvq3mm92/image.png",
 };
 
 const topBar = [
@@ -20,7 +21,7 @@ const topBar = [
   { name: "Codechef", value: "codechef.com" },
   { name: "Atcoder", value: "atcoder.jp" },
   { name: "HackerEarth", value: "hackerearth.com" },
-  { name: "HackerRank", value: "hackerrank.com" },
+  { name: "GeeksforGeeks", value: "geeksforgeeks.org" },
 ];
 
 export default function Home() {
@@ -54,6 +55,7 @@ export default function Home() {
   };
 
   useEffect(() => {
+    setLoading(true);
     fetchData();
   }, [platform]);
 
@@ -99,20 +101,25 @@ export default function Home() {
       <h1 className="text-4xl font-bold text-center mt-4 mb-4">
         Upcoming Contests
       </h1>
-      <div className="flex flex-wrap justify-center gap-2 mb-4">
-        {topBar.map((item: any) => (
-          <button
-            key={item.name}
-            onClick={() => handleChange(item.value)}
-            className={`text-white font-semibold py-1 px-2 rounded-xl ${
-              platform === item.value
-                ? "bg-red-700"
-                : "bg-blue-500 hover:bg-blue-700"
-            }`}
-          >
-            {item.name}
-          </button>
-        ))}
+      <div className="max-w-3xl mx-auto mb-8">
+        <div className="bg-white shadow-md rounded-full p-1 flex justify-between items-center">
+          {topBar.map((item: any) => (
+            <button
+              key={item.name}
+              onClick={() => handleChange(item.value)}
+              className={`
+          text-sm font-medium py-2 px-4 rounded-full transition-all duration-300 ease-in-out
+          ${
+            platform === item.value
+              ? "bg-blue-500 text-white shadow-md transform scale-105"
+              : "text-gray-600 hover:bg-gray-100"
+          }
+        `}
+            >
+              {item.name}
+            </button>
+          ))}
+        </div>
       </div>
 
       {loading && (
@@ -123,7 +130,7 @@ export default function Home() {
 
       {!loading && data && data.length === 0 && (
         <div className="text-center text-xl text-gray-500">
-          Currently there are no available contests for the respective contest
+          Currently there are no available contests.
         </div>
       )}
 
@@ -144,14 +151,20 @@ export default function Home() {
                     className="object-cover"
                   />
                 </div>
-                <div className="flex-grow">
-                  <h3 className="text-xl font-bold text-gray-800 truncate">
+                <div className="flex-grow overflow-hidden">
+                  <h3 className="text-xl font-bold text-gray-800 truncate text-clip flex items-center justify-between pe-1.5">
                     {contest.name}
+                    {contest.startTime > new Date().toISOString() &&
+                      contest.endTime < new Date().toISOString() && (
+                        <div className="w-3 h-3 rounded-full bg-red-500 relative">
+                          <div className="w-3 h-3 rounded-full bg-red-500 animate-ping absolute opacity-75"></div>
+                        </div>
+                      )}
                   </h3>
-                  <div className=" w-full flex items-center justify-end ">
-                    <div className="text-2xs text-gray-600 me-4 capitalize">
-                      - {contest.host.split(".")[0]}
-                    </div>
+                  <div className="text-xs text-gray-50 me-4 capitalize">
+                    <span className="bg-sky-600 px-1.5 py-0.5 rounded-lg font-semibold ">
+                      {contest.host.split(".")[0]}
+                    </span>
                   </div>
                 </div>
               </div>

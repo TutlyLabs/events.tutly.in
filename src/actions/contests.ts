@@ -6,7 +6,7 @@ const platforms = [
   "leetcode.com",
   "atcoder.jp",
   "hackerearth.com",
-  "hackerrank.com",
+  "geeksforgeeks.org",
 ];
 
 
@@ -43,7 +43,7 @@ export const fetchAllContests = async () => {
 export const getAllContests = async () => {
   const res = await db.contests.findMany({
     where: {
-      startTime: {
+      endTime: {
         gte: new Date().toISOString(),
       },
     },
