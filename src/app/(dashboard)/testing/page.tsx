@@ -44,7 +44,6 @@ export default function Home() {
         throw new Error("Network response was not ok");
       }
       const json = await res.json();
-      console.log(json);
 
       setData(json);
     } catch (error: any) {
