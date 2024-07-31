@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { FcClock } from "react-icons/fc";
 
 const hostLogos: { [key: string]: string } = {
   "leetcode.com": "https://i.postimg.cc/Qd5QqfpX/image.png",
@@ -61,6 +62,39 @@ export default function Home() {
     setPlatform(e);
   };
 
+  function CountdownTimer({ startTime }: { startTime: string }) {
+    const [timeLeft, setTimeLeft] = useState("");
+
+    useEffect(() => {
+      const timer = setInterval(() => {
+        const now = new Date();
+        const start = new Date(startTime);
+        const difference = start.getTime() - now.getTime();
+
+        if (difference > 0) {
+          const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+          const minutes = Math.floor((difference / 1000 / 60) % 60);
+          const seconds = Math.floor((difference / 1000) % 60);
+
+          setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+        } else {
+          setTimeLeft("Contest Started");
+          clearInterval(timer);
+        }
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }, [startTime]);
+
+    return (
+      <div className="flex items-center justify-center gap-2 text-center font-semibold text-medium text-red-600 mb-2">
+        <FcClock className="w-5 h-5" />
+        {timeLeft}
+      </div>
+    );
+  }
+
   return (
     <div className="container m-auto p-4">
       <h1 className="text-4xl font-bold text-center mt-4 mb-4">
@@ -99,7 +133,7 @@ export default function Home() {
           {data.map((contest: any) => (
             <div
               key={contest.id}
-              className="bg-white hover:bg-gray-100 shadow-lg rounded-xl p-6 transition-all duration-300 hover:shadow-xl hover:scale-105 flex flex-col"
+              className="bg-white shadow-lg rounded-xl p-6 transition-all duration-300 hover:shadow-xl hover:scale-105 flex flex-col"
             >
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 mr-4 flex-shrink-0 overflow-hidden rounded-full border-2 border-gray-200">
@@ -111,20 +145,24 @@ export default function Home() {
                     className="object-cover"
                   />
                 </div>
-                <h3 className="text-xl font-bold text-gray-800 truncate flex-grow">
-                  {contest.name}
-                </h3>
+                <div className="flex-grow">
+                  <h3 className="text-xl font-bold text-gray-800 truncate">
+                    {contest.name}
+                  </h3>
+                  <div className=" w-full flex items-center justify-end ">
+                    <div className="text-2xs text-gray-600 me-4 capitalize">
+                      - {contest.host.split(".")[0]}
+                    </div>
+                  </div>
+                </div>
               </div>
               <div className="flex-grow">
                 <p className="text-sm text-gray-600 mb-2">
-                  <span className="font-semibold">Host:</span> {contest.host}
-                </p>
-                <p className="text-sm text-gray-600 mb-2">
-                  <span className="font-semibold">Start:</span>{" "}
+                  <span className="font-semibold">Starts at:</span>{" "}
                   {new Date(contest.startTime).toLocaleString()}
                 </p>
                 <p className="text-sm text-gray-600 mb-2">
-                  <span className="font-semibold">End:</span>{" "}
+                  <span className="font-semibold">Ends at:</span>{" "}
                   {new Date(contest.endTime).toLocaleString()}
                 </p>
                 <p className="text-sm text-gray-600 mb-4">
@@ -132,11 +170,12 @@ export default function Home() {
                   {contest.duration / 60} minutes
                 </p>
               </div>
+              <CountdownTimer startTime={contest.startTime} />
               <a
                 href={contest.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-auto bg-blue-500 text-white py-2 px-4 rounded-lg text-center transition-colors duration-300 hover:bg-blue-600"
+                className="mt-auto bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold text-center transition-colors duration-300 hover:bg-blue-600"
               >
                 Join Contest
               </a>
