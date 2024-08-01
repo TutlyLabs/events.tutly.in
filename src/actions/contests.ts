@@ -16,7 +16,7 @@ export const getContestsByPlatform = async (platform: string) => {
   const res = await db.contests.findMany({
     where: {
       host: platform,
-      startTime: {
+      endTime: {
         gte: new Date().toISOString(),
       },
     },
