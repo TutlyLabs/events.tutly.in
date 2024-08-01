@@ -96,6 +96,13 @@ export default function Home() {
     );
   }
 
+  function convertToIST(dateString: string) {
+    const date = new Date(dateString);
+    const istOffset = 5.5 * 60 * 60000;    
+    
+    return new Date(date.getTime() + istOffset);
+  }
+
   return (
     <div className="container m-auto p-4">
       <h1 className="text-4xl font-bold text-center mt-4 mb-4">
@@ -154,8 +161,8 @@ export default function Home() {
                 <div className="flex-grow overflow-hidden">
                   <h3 className="text-xl font-bold text-gray-800 truncate text-clip flex items-center justify-between pe-1.5">
                     {contest.name}
-                    {contest.startTime > new Date().toISOString() &&
-                      contest.endTime < new Date().toISOString() && (
+                    {convertToIST(contest.startTime) > new Date() &&
+                      convertToIST(contest.endTime) < new Date() && (
                         <div className="w-3 h-3 rounded-full bg-red-500 relative">
                           <div className="w-3 h-3 rounded-full bg-red-500 animate-ping absolute opacity-75"></div>
                         </div>
@@ -171,18 +178,20 @@ export default function Home() {
               <div className="flex-grow">
                 <p className="text-sm text-gray-600 mb-2">
                   <span className="font-semibold">Starts at:</span>{" "}
-                  {new Date(contest.startTime).toLocaleString()}
+                  {convertToIST(contest.startTime).toLocaleString()}
                 </p>
                 <p className="text-sm text-gray-600 mb-2">
                   <span className="font-semibold">Ends at:</span>{" "}
-                  {new Date(contest.endTime).toLocaleString()}
+                  {convertToIST(contest.endTime).toLocaleString()}
                 </p>
                 <p className="text-sm text-gray-600 mb-4">
                   <span className="font-semibold">Duration:</span>{" "}
                   {contest.duration / 60} minutes
                 </p>
               </div>
-              <CountdownTimer startTime={contest.startTime} />
+              <CountdownTimer
+                startTime={convertToIST(contest.startTime).toISOString()}
+              />
               <a
                 href={contest.href}
                 target="_blank"
