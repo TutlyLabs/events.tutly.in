@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { GoDotFill } from "react-icons/go";
 import { FcClock } from "react-icons/fc";
+import { GoArrowUpRight } from "react-icons/go";
 
 const hostLogos: { [key: string]: string } = {
   "leetcode.com": "https://i.postimg.cc/Qd5QqfpX/image.png",
@@ -146,7 +146,7 @@ export default function Home() {
           {data.map((contest: any) => (
             <div
               key={contest.id}
-              className="bg-white shadow-lg rounded-xl p-6 transition-all duration-300 hover:shadow-xl hover:scale-105 flex flex-col"
+              className="bg-white shadow-lg rounded-xl p-6 transition-all duration-300 hover:shadow-xl hover:scale-105 hover:bg-gray-100 flex flex-col"
             >
               <div className="flex items-center mb-4">
                 <div className="w-12 h-12 mr-4 flex-shrink-0 overflow-hidden rounded-full border-2 border-gray-200">
@@ -168,21 +168,38 @@ export default function Home() {
                         </div>
                       )}
                   </h3>
-                  <div className="text-xs text-gray-50 me-4 capitalize">
-                    <span className="bg-sky-600 px-1.5 py-0.5 rounded-lg font-semibold ">
+                  <div className="text-xs text-gray-50 me-4 capitalize py-0.5">
+                    <span
+                      className="bg-sky-600 px-1.5 py-0.5 rounded-lg font-semibold hover:bg-sky-700 transition-colors 
+                    duration-300 ease-in-out text-white "
+                    >
                       {contest.host.split(".")[0]}
                     </span>
                   </div>
                 </div>
               </div>
               <div className="flex-grow">
-                <p className="text-sm text-gray-600 mb-2">
-                  <span className="font-semibold">Starts at:</span>{" "}
-                  {convertToIST(contest.startTime).toLocaleString()}
+                <p className="text-sm text-gray-600 mb-2 uppercase">
+                  <span className="font-semibold normal-case ">Starts at:</span>{" "}
+                  {convertToIST(contest.startTime).toLocaleString("en-IN", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  })}
                 </p>
-                <p className="text-sm text-gray-600 mb-2">
-                  <span className="font-semibold">Ends at:</span>{" "}
-                  {convertToIST(contest.endTime).toLocaleString()}
+                <p className="text-sm text-gray-600 mb-2 uppercase">
+                  <span className="font-semibold normal-case">Ends at :</span>{" "}
+                  {convertToIST(contest.endTime).toLocaleString("en-IN", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    hour12: true,
+                  })}
                 </p>
                 <p className="text-sm text-gray-600 mb-4">
                   <span className="font-semibold">Duration:</span>{" "}
@@ -196,9 +213,9 @@ export default function Home() {
                 href={contest.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-auto bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold text-center transition-colors duration-300 hover:bg-blue-600"
+                className="mt-auto flex gap-1 items-center justify-center bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold text-center transition-colors duration-300 hover:bg-blue-600"
               >
-                Join Contest
+                Join Contest <GoArrowUpRight className="w-5 h-5 font-bold mt-0.5" />
               </a>
             </div>
           ))}
