@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { Contests } from "@prisma/client";
+import { CalendarEvents, Contests } from "@prisma/client";
 import { google } from "googleapis";
 
 const platforms = [
@@ -38,13 +38,14 @@ export const fetchAllContests = async () => {
     skipDuplicates: true,
   });
 
-  await create_calendar_events(newEvents);
+  const response = await create_calendar_events(newEvents);
 
   return {
     new_events_count: newEvents.length,
     new_events: newEvents,
     upcomming_events_count: requiredData.length,
     upcomming_events: requiredData,
+    calendar_events: response,
   };
 };
 
@@ -82,8 +83,7 @@ const create_calendar_events = async (contests: Contests[]) => {
   const leetcode_codechef_codeforces_calendar_id =
     "609e463fa9edf97ff29526f1ff76b054e646a2cccddf5424a1c5b169a9eddbec@group.calendar.google.com";
 
-  
-  contests.forEach(async (contest) => {
+  const eventCreationPromises = contests.map(async (contest) => {
     const duration = contest.duration / 60;
     const host = contest.host.toLowerCase().split(".")[0];
 
@@ -141,9 +141,14 @@ const create_calendar_events = async (contests: Contests[]) => {
       colorId: color_id,
     };
 
-    try {
-      calendar_ids.forEach(async (calendar_id) => {
+    const events = await Promise.all(
+      calendar_ids.map(async (calendar_id) => {
         if (!auth) {
+          auth = await get_auth();
+        }
+
+        // create new auth for every 7 events
+        if (calendar_ids.indexOf(calendar_id) % 7 === 0) {
           auth = await get_auth();
         }
 
@@ -152,18 +157,50 @@ const create_calendar_events = async (contests: Contests[]) => {
           requestBody: event,
           auth,
         });
-        console.log("Event created: %s", res.data.htmlLink);
 
-        await new Promise((resolve) => setTimeout(resolve, 3000));
-      });
+        if (!res.data.id || !res.data.htmlLink) {
+          throw new Error(
+            `Error in creating event for ${contest.name} - ${contest.host}, response: ${res}`
+          );
+        }
 
-      await new Promise((resolve) => setTimeout(resolve, 5000));
-    } catch (error) {
-      console.log(error);
-      process.exit(1);
-      return;
-    }
+        const calendar_event = await db.calendarEvents.create({
+          data: {
+            calendarId: calendar_id,
+            contestId: contest.id,
+            eventId: res.data.id,
+            eventlink: res.data.htmlLink,
+          },
+        });
+
+        // Introducing a delay between processing different contests
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        // Adding each created event to the array
+        return calendar_event;
+      })
+    );
+
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    return events;
   });
+
+  // Wait for all events to be created
+  const created_events = await Promise.all(eventCreationPromises);
+
+  const failed_events = contests.filter((contest) => {
+    return !created_events.some((event) =>
+      event.map((e) => e.contestId).includes(contest.id)
+    );
+  });
+
+  return {
+    created_events_count: created_events.length,
+    created_events: created_events,
+    failed_events_count: failed_events.length,
+    failed_events: failed_events,
+  };
 };
 
 const get_auth = async () => {
@@ -207,7 +244,6 @@ const get_auth = async () => {
 //   return response.access_token;
 // };
 
-
 // // delete all events $$$ dangerous $$$
 // const all = [
 //   mixed_calendar_id,
@@ -244,7 +280,7 @@ const get_auth = async () => {
 //         });
 
 //         await new Promise((resolve) => setTimeout(resolve, 1000));
-        
+
 //         console.log("Event deleted: %s", event.htmlLink);
 //       });
 //     });

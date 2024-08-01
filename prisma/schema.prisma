@@ -73,6 +73,9 @@ model Contests {
   name       String
   href       String
   host       String
+
+  calendarEvents CalendarEvents[]
+
   startTime  DateTime
   endTime    DateTime
   duration   Int
@@ -104,4 +107,21 @@ model CodingProfiles {
   AtCoder       String?
   GeeksForGeeks String?
   Hackerearth   String?
+}
+
+
+model CalendarEvents {
+  id String @id @default(uuid())
+
+  contestId String
+  contest Contests @relation(fields: [contestId], references: [id])
+
+  eventId String @unique
+  calendarId String
+  eventlink String
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("calendar_events")
 }
