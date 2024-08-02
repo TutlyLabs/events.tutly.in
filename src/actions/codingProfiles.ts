@@ -22,14 +22,24 @@ export const createUserCodingProfiles = async (usernames: {
         id: prevUser.id,
       },
       data: {
-        ...usernames,
+        CodeChef : usernames?.Codechef,
+        Codeforces : usernames?.Codeforces,
+        LeetCode : usernames?.Leetcode,
+        AtCoder : usernames?.Atcoder,
+        GeeksForGeeks : usernames?.Geeksforgeeks,
+        Hackerearth : usernames?.Hackerearth,
       },
     });
   } else {
     await db.codingProfiles.create({
       data: {
         userId: user.id,
-        ...usernames,
+        CodeChef : usernames?.Codechef,
+        Codeforces : usernames?.Codeforces,
+        LeetCode : usernames?.Leetcode,
+        AtCoder : usernames?.Atcoder,
+        GeeksForGeeks : usernames?.Geeksforgeeks,
+        Hackerearth : usernames?.Hackerearth,
       },
     });
   }
