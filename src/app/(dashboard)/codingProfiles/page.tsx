@@ -4,11 +4,11 @@ import axios from "axios";
 
 const platforms = [
   "Codeforces",
-  "Codechef",
-  "Leetcode",
-  "Atcoder",
+  "CodeChef",
+  "LeetCode",
+  "AtCoder",
   "Hackerearth",
-  "Geeksforgeeks",
+  "GeeksForGeeks",
 ];
 
 export default function UserForm() {
@@ -27,6 +27,7 @@ export default function UserForm() {
 
     try {
       const response = await axios.post("/api/codingProfiles", usernames);
+      console.log(usernames);
       
       setMessage("coding Profiles submitted successfully!");
     } catch (error) {
