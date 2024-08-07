@@ -10,7 +10,7 @@ const Page = async () => {
     const currentUser = await getCurrentUser();
     if (!currentUser) {
         // redirect to login page
-        redirect("/login");
+        redirect("/signin");
 
         // return <div className="">
         //     <div className="text-center text-3xl mt-16 font-semibold">Sign in to view profile!</div>

@@ -35,8 +35,9 @@ model User {
   contestRatings contestRatings[]
   CodingProfiles CodingProfiles?
 
-  teamMemberships Team[] @relation("TeamMembers")
-  leadTeams       Team[] @relation("TeamLeader")
+  teamMemberships Team[]    @relation("TeamMembers")
+  leadTeams       Team[]    @relation("TeamLeader")
+  Session         Session[]
 }
 
 model Profile {
@@ -183,8 +184,8 @@ model Team {
 
   members User[] @relation(name: "TeamMembers")
 
-  userId    String
-  leader  User   @relation(fields: [userId], references: [id], name: "TeamLeader")
+  userId String
+  leader User   @relation(fields: [userId], references: [id], name: "TeamLeader")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -214,4 +215,15 @@ model Round {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  userId       String
+  expires      DateTime
+  sessionToken String   @unique
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User     @relation(fields: [userId], references: [id])
 }
