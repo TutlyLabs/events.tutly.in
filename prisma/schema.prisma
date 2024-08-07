@@ -34,6 +34,9 @@ model User {
   profile        Profile?
   contestRatings contestRatings[]
   CodingProfiles CodingProfiles?
+
+  teamMemberships Team[] @relation("TeamMembers")
+  leadTeams       Team[] @relation("TeamLeader")
 }
 
 model Profile {
@@ -68,17 +71,17 @@ model Account {
 }
 
 model Contests {
-  id         String   @id @default(uuid())
-  contest_id String   @unique
+  id         String @id @default(uuid())
+  contest_id String @unique
   name       String
   href       String
   host       String
 
   calendarEvents CalendarEvents[]
 
-  startTime  DateTime
-  endTime    DateTime
-  duration   Int
+  startTime DateTime
+  endTime   DateTime
+  duration  Int
 }
 
 model contestRatings {
@@ -92,7 +95,6 @@ model contestRatings {
   leetCodeRating      Int?
   atCoderRating       Int?
   geeksForGeeksRating Int?
-  HackerearthRating   Int?
 }
 
 model CodingProfiles {
@@ -100,28 +102,116 @@ model CodingProfiles {
 
   user   User   @relation(fields: [userId], references: [id])
   userId String @unique
-  
+
   CodeChef      String?
   Codeforces    String?
   LeetCode      String?
   AtCoder       String?
   GeeksForGeeks String?
-  Hackerearth   String?
 }
-
 
 model CalendarEvents {
   id String @id @default(uuid())
 
   contestId String
-  contest Contests @relation(fields: [contestId], references: [id])
+  contest   Contests @relation(fields: [contestId], references: [id])
 
-  eventId String @unique
+  eventId    String @unique
   calendarId String
-  eventlink String
+  eventlink  String
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("calendar_events")
+}
+
+enum EventType {
+  HACKATHON
+  CONTEST
+  WORKSHOP
+  WEBINAR
+}
+
+model Event {
+  id String @id @default(uuid())
+
+  name        String
+  description String?
+  slug        String    @unique
+  type        EventType
+  fees        Int       @default(0)
+  host        String    @default("Tutly")
+  href        String?
+  tags        String[]
+
+  minTeamSize Int @default(1)
+  maxTeamSize Int @default(1)
+
+  rounds Round[]
+
+  Prizes Prizes[]
+
+  startTime DateTime?
+  endTime   DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Prizes {
+  id String @id @default(uuid())
+
+  event   Event  @relation(fields: [eventId], references: [id])
+  eventId String
+
+  position Int
+  prize    String
+
+  teamId String?
+  winner Team?   @relation(fields: [teamId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Team {
+  id String @id @default(uuid())
+
+  name        String
+  description String?
+
+  members User[] @relation(name: "TeamMembers")
+
+  userId    String
+  leader  User   @relation(fields: [userId], references: [id], name: "TeamLeader")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Prizes    Prizes[]
+}
+
+enum RoundMode {
+  ONLINE
+  ONSITE
+}
+
+model Round {
+  id String @id @default(uuid())
+
+  Event   Event?  @relation(fields: [eventId], references: [id])
+  eventId String?
+
+  name        String
+  description String?
+
+  mode RoundMode @default(ONLINE)
+
+  startTime DateTime?
+  endTime   DateTime?
+
+  venue String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
