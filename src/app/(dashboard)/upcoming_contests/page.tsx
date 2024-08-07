@@ -13,6 +13,13 @@ const hostLogos: { [key: string]: string } = {
   "geeksforgeeks.org": "https://i.postimg.cc/hvq3mm92/image.png",
 };
 
+const hostColors: { [key: string]: string } = {
+  "codechef.com": "bg-blue-500",
+  "codeforces.com": "bg-red-800",
+  "geeksforgeeks.org": "bg-emerald-700",
+  "atcoder.jp": "bg-black",
+};
+
 const topBar = [
   { name: "All", value: "all" },
   { name: "Leetcode", value: "leetcode.com" },
@@ -22,11 +29,22 @@ const topBar = [
   { name: "GeeksforGeeks", value: "geeksforgeeks.org" },
 ];
 
+const timeFilters = [
+  { name: "All", value: null },
+  { name: "Under 1 Day", value: 1 },
+  { name: "Under 1 Week", value: 7 },
+  { name: "Under 10 Days", value: 10 },
+  { name: "Under 2 Weeks", value: 14 },
+];
+
 export default function Home() {
   const [platform, setPlatform] = useState("all");
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [selectedTimeFrame, setSelectedTimeFrame] = useState<number | null>(
+    null
+  );
 
   const fetchData = async () => {
     setError(null);
@@ -59,6 +77,10 @@ export default function Home() {
 
   const handleChange = (e: string) => {
     setPlatform(e);
+  };
+
+  const handleTimeFilterChange = (value: number | null) => {
+    setSelectedTimeFrame(value);
   };
 
   function CountdownTimer({ startTime }: { startTime: string }) {
@@ -96,10 +118,19 @@ export default function Home() {
 
   function convertToIST(dateString: string) {
     const date = new Date(dateString);
+ // const istOffset = 5.5 * 60 * 60000;
     const istOffset = 0;
-    
     return new Date(date.getTime() + istOffset);
   }
+
+  const filteredData = data.filter((contest: any) => {
+    if (!selectedTimeFrame) return true;
+    const now = new Date();
+    const start = convertToIST(contest.startTime);
+    const difference =
+      (start.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);
+    return difference <= selectedTimeFrame;
+  });
 
   return (
     <div className="container m-auto p-4">
@@ -113,17 +144,35 @@ export default function Home() {
               key={item.name}
               onClick={() => handleChange(item.value)}
               className={`
-          text-sm font-medium py-2 px-4 rounded-full transition-all duration-300 ease-in-out
-          ${
-            platform === item.value
-              ? "bg-blue-500 text-white shadow-md transform scale-105"
-              : "text-gray-600 hover:bg-gray-100"
-          }
-        `}
+                max-sm:text-xs text-sm font-medium py-2 px-4 rounded-full transition-all duration-300 ease-in-out
+                ${
+                  platform === item.value
+                    ? "bg-blue-500 text-white shadow-md transform scale-105"
+                    : "text-gray-600 hover:bg-gray-200/50"
+                }
+              `}
             >
               {item.name}
             </button>
           ))}
+        </div>
+        <div className="mt-4 flex justify-end items-center  ">
+          <select
+            onChange={(e) =>
+              handleTimeFilterChange(parseInt(e.target.value) || null)
+            }
+            className="border rounded-full px-4 py-2 bg-blue-500"
+            defaultValue=""
+          >
+            <option value="" disabled>
+              Filter by time frame
+            </option>
+            {timeFilters.map((filter,index) => (
+              <option key={filter.value} value={String(filter.value)}>
+                {filter.name}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
@@ -133,15 +182,15 @@ export default function Home() {
         </div>
       )}
 
-      {!loading && data && data.length === 0 && (
+      {!loading && filteredData.length === 0 && (
         <div className="text-center text-xl text-gray-500">
           Currently there are no available contests.
         </div>
       )}
 
-      {!loading && data && data.length > 0 && (
+      {!loading && filteredData.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {data.map((contest: any) => (
+          {filteredData.map((contest: any) => (
             <div
               key={contest.id}
               className="bg-white shadow-lg rounded-xl p-6 transition-all duration-300 hover:shadow-xl hover:scale-105 hover:bg-gray-100 flex flex-col"
@@ -168,8 +217,9 @@ export default function Home() {
                   </h3>
                   <div className="text-xs text-gray-50 me-4 capitalize py-0.5">
                     <span
-                      className="bg-sky-600 px-1.5 py-0.5 rounded-lg font-semibold hover:bg-sky-700 transition-colors 
-                    duration-300 ease-in-out text-white "
+                      className={`px-1.5 py-0.5 rounded-lg font-semibold text-white ${
+                        hostColors[contest.host] || "bg-sky-600"
+                      }`}
                     >
                       {contest.host.split(".")[0]}
                     </span>
@@ -178,7 +228,7 @@ export default function Home() {
               </div>
               <div className="flex-grow">
                 <p className="text-sm text-gray-600 mb-2 uppercase">
-                  <span className="font-semibold normal-case ">Starts at:</span>{" "}
+                  <span className="font-semibold normal-case">Starts at:</span>{" "}
                   {convertToIST(contest.startTime).toLocaleString("en-IN", {
                     day: "2-digit",
                     month: "2-digit",
@@ -189,7 +239,7 @@ export default function Home() {
                   })}
                 </p>
                 <p className="text-sm text-gray-600 mb-2 uppercase">
-                  <span className="font-semibold normal-case">Ends at :</span>{" "}
+                  <span className="font-semibold normal-case">Ends at:</span>{" "}
                   {convertToIST(contest.endTime).toLocaleString("en-IN", {
                     day: "2-digit",
                     month: "2-digit",
@@ -213,7 +263,8 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="mt-auto flex gap-1 items-center justify-center bg-blue-500 text-white py-2 px-4 rounded-lg font-semibold text-center transition-colors duration-300 hover:bg-blue-600"
               >
-                Join Contest <GoArrowUpRight className="w-5 h-5 font-bold mt-0.5" />
+                Join Contest{" "}
+                <GoArrowUpRight className="w-5 h-5 font-bold mt-0.5" />
               </a>
             </div>
           ))}
