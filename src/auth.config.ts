@@ -81,21 +81,4 @@ export default {
       },
     }),
   ],
-  callbacks: {
-    async jwt({ token, user, account, profile }) {
-      if (user) {
-        token.username = user.username;
-        //@ts-ignore
-        token.role = user.role as Role;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (session?.user) {
-        session.user.username = token.username;
-        session.user.role = token.role;
-      }
-      return session;
-    },
-  },
 } satisfies NextAuthConfig;
