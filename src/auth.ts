@@ -12,8 +12,8 @@ export const { handlers:{
     signIn: "/signin",
   },
   session: {
-    strategy: "database",
-    // maxAge: 4 * 60 * 60, // 4 hours
+    strategy: "jwt",
+    maxAge: 15 * 60, // 15 minutes
   },
   secret: process.env.NEXTAUTH_SECRET as string,
   ...authConfig,
