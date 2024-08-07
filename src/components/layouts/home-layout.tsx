@@ -5,9 +5,10 @@ import Loading from "@/app/(dashboard)/loading";
 import Navbar from "../navbar/Navbar";
 import Sidebar from "../sidebar/sidebar";
 import { RxDashboard } from "react-icons/rx";
-import { SiCodeforces } from "react-icons/si";
 import { PiCodeBold } from "react-icons/pi";
 import { MdOutlineQueryStats } from "react-icons/md";
+import { MdLeaderboard } from "react-icons/md";
+import { HiUserGroup } from "react-icons/hi";
 
 
 export default function HomeLayout({
@@ -26,7 +27,7 @@ export default function HomeLayout({
     },
     {
       name: "Contests",
-      icon: <SiCodeforces />,
+      icon: <HiUserGroup />,
       path: "/upcoming_contests",
     },
     {
@@ -38,6 +39,11 @@ export default function HomeLayout({
       name: "Statistics",
       icon: <MdOutlineQueryStats />,
       path: "/ratings",
+    },
+    {
+      name: "Leaderboard",
+      icon: <MdLeaderboard />,
+      path: "/leaderboard",
     },
     {
       name: "Hackathons",
