@@ -200,8 +200,8 @@ function Hackathon() {
                 .filter((item) =>
                   item.title.toLowerCase().includes(search.toLowerCase())
                 )
-                .map((item) => (
-                  <div className="flex justify-between p-2 px-4 items-center border-b hover:bg-white cursor-pointer hover:scale-y-105 duration-500 hover:shadow-sm">
+                .map((item, index) => (
+                  <div key={index} className="flex justify-between p-2 px-4 items-center border-b hover:bg-white cursor-pointer hover:scale-y-105 duration-500 hover:shadow-sm">
                     <div className="flex gap-2 items-center">
                       <div className="w-10 h-10 rounded-full bg-white"></div>
                       <h1 className="p-1 px-2">{item.title}</h1>
@@ -212,8 +212,8 @@ function Hackathon() {
               {data.filter((item) =>
                 item.title.toLowerCase().includes(search.toLowerCase())
               ).length == 0 && (
-                <h1 className="p-1 px-2 text-center py-4">No results found!</h1>
-              )}
+                  <h1 className="p-1 px-2 text-center py-4">No results found!</h1>
+                )}
             </div>
           )}
         </div>
@@ -223,7 +223,7 @@ function Hackathon() {
         {data.map((item, index) => {
           if (item.type !== "HACKATHON") return null;
           return (
-            <div className="rounded-xl p-4 px-6 shadow-sm w-[48%] flex flex-col my-2 gap-8 bg-white">
+            <div key={index} className="rounded-xl p-4 px-6 shadow-sm w-[48%] flex flex-col my-2 gap-8 bg-white">
               <div>
                 <h1 className="text-2xl font-bold">{item.title}</h1>
                 <h1 className="text-xs">{item.type}</h1>
@@ -234,8 +234,8 @@ function Hackathon() {
                     Theme
                   </h1>
                   <div className="flex gap-2 flex-wrap">
-                    {item.tags.map((tag) => (
-                      <p className="p-0.5 border-2 border-slate-100 px-2 rounded-full">
+                    {item.tags.map((tag,index) => (
+                      <p key={index} className="p-0.5 border-2 border-slate-100 px-2 rounded-full">
                         {tag}
                       </p>
                     ))}
