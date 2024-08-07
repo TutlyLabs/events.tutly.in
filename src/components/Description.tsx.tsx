@@ -14,7 +14,7 @@ import Faq from '@/components/Details/faq';
 function Description() {
   const [activeComponent, setActiveComponent] = useState('Component1');
 
-  const components = {
+  const components: { [key: string]: JSX.Element } = {
     Component1: <Details />,
     Component2: <Timeline />,
     Component3: <Prizes />
@@ -61,7 +61,7 @@ function Description() {
               </div>
               <div className="flex gap-5">
                 <FaRegHeart className="w-6 h-6" />
-                <Image src="https://i.postimg.cc/rphxk8Hp/calendar.png" height="14" width="22"/>
+                <img src="https://i.postimg.cc/rphxk8Hp/calendar.png" height="14" width="22"/>
                 <IoIosShareAlt className="w-6 h-6" />
               </div>
             </div>
