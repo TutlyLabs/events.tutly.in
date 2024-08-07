@@ -45,6 +45,11 @@ export default function HomeLayout({
       icon: <MdLeaderboard />,
       path: "/leaderboard",
     },
+    {
+      name: "Hackathons",
+      icon: <MdOutlineQueryStats />,
+      path: "/hackathon",
+    },
   ];
   return (
     <div className="w-full">
