@@ -1,10 +1,9 @@
-
-
+import Description from "@/components/Description.tsx"
 const page = () => {
 
   return (
     <div>
-      Home page
+      <Description/>
     </div>
   )
 }
