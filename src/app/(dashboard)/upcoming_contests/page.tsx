@@ -118,7 +118,8 @@ export default function Home() {
 
   function convertToIST(dateString: string) {
     const date = new Date(dateString);
-    const istOffset = 5.5 * 60 * 60000;
+    // const istOffset = 5.5 * 60 * 60000;
+    const istOffset = 0;
     return new Date(date.getTime() + istOffset);
   }
 
@@ -136,7 +137,7 @@ export default function Home() {
       <h1 className="text-4xl font-bold text-center mt-4 mb-4">
         Upcoming Contests
       </h1>
-      <div className="max-w-3xl mx-auto mb-8">
+      <div className="max-w-2xl mx-auto mb-8">
         <div className="bg-white shadow-md rounded-full p-1 flex justify-between items-center overflow-hidden flex-wrap">
           {topBar.map((item: any) => (
             <button
@@ -250,7 +251,7 @@ export default function Home() {
                 </p>
                 <p className="text-sm text-gray-600 mb-4">
                   <span className="font-semibold">Duration:</span>{" "}
-                  {contest.duration / 60} minutes
+                  {contest.duration / (60 * 1000)} minutes
                 </p>
               </div>
               <CountdownTimer
