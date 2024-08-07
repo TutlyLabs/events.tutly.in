@@ -30,17 +30,19 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  account Account[]
-  profile Profile?
+  account        Account[]
+  profile        Profile?
+  contestRatings contestRatings[]
+  CodingProfiles CodingProfiles?
 }
 
 model Profile {
-  id     String @id @default(uuid())
-  
+  id String @id @default(uuid())
+
   user   User   @relation(fields: [userId], references: [id])
   userId String @unique
 
-  bio             String?
+  bio String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -63,4 +65,63 @@ model Account {
   userId String @unique
 
   @@unique([provider, providerAccountId])
+}
+
+model Contests {
+  id         String   @id @default(uuid())
+  contest_id String   @unique
+  name       String
+  href       String
+  host       String
+
+  calendarEvents CalendarEvents[]
+
+  startTime  DateTime
+  endTime    DateTime
+  duration   Int
+}
+
+model contestRatings {
+  id String @id @default(uuid())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  codeChefRating      Int?
+  codeforcesRating    Int?
+  leetCodeRating      Int?
+  atCoderRating       Int?
+  geeksForGeeksRating Int?
+  HackerearthRating   Int?
+}
+
+model CodingProfiles {
+  id String @id @default(uuid())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+  
+  CodeChef      String?
+  Codeforces    String?
+  LeetCode      String?
+  AtCoder       String?
+  GeeksForGeeks String?
+  Hackerearth   String?
+}
+
+
+model CalendarEvents {
+  id String @id @default(uuid())
+
+  contestId String
+  contest Contests @relation(fields: [contestId], references: [id])
+
+  eventId String @unique
+  calendarId String
+  eventlink String
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("calendar_events")
 }

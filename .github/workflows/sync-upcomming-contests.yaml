@@ -1,0 +1,15 @@
+name: Sync Upcoming Contests
+
+on:
+  schedule:
+    - cron: "0 22 * * *" # 4:00 AM IST
+  workflow_dispatch:
+
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Daily cron job
+        run: |
+          curl -L -X GET 'https://events-tutly.vercel.app/api/cron/sync-upcomming-contests?token=${{ secrets.CRON_JOB_SECRET }}' \
+          -H "Content-Type: application/json" 
