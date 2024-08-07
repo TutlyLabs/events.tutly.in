@@ -27,11 +27,11 @@ const Navbar: React.FC<Props> = ({ currentUser, menu, setMenu }: Props) => {
   const isCoursePage = pathname.startsWith("/courses/");
 
   return (
-    <div className="shadow-md px-2 z-50 sticky top-0 backdrop-blur-3xl">
-      <div className="flex items-center justify-between p-2">
+    <div className="border-b px-32 py-1 z-50 backdrop-blur-3xl sticky top-0">
+      <div className="flex items-center justify-between py-2">
         <div className="flex items-center gap-3 text-xl font-semibold">
           <div className="flex items-center gap-3">
-            {!isCoursePage ? (
+            {/* {!isCoursePage ? (
               <div
                 onClick={Menu}
                 className="p-2 rounded-full dark:hover:bg-secondary-800 hover:bg-neutral-300 cursor-pointer"
@@ -45,9 +45,9 @@ const Navbar: React.FC<Props> = ({ currentUser, menu, setMenu }: Props) => {
               >
                 <IoMdArrowRoundBack className="text-xl" />
               </div>
-            )}
-            <Link href="/" className="hidden md:flex">
-              Events
+            )} */}
+            <Link href="/" className="hidden md:flex font-black">
+              EVENTS
             </Link>
           </div>
         </div>
@@ -57,13 +57,11 @@ const Navbar: React.FC<Props> = ({ currentUser, menu, setMenu }: Props) => {
               ADMIN
             </h1>
           }
-          <ThemeSwitch />
+          <button className="border rounded p-1 px-4">Calendar</button>
+          {/* <ThemeSwitch />
           <div className="rounded-full cursor-pointer dark:hover:bg-secondary-800 hover:bg-neutral-300 p-2">
             <div onClick={() => setPopover((prev) => !prev)}>
               <IoMdNotificationsOutline className="text-xl" />
-              {/* <div className="absolute top-2 right-24 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                  0
-                </div> */}
             </div>
             {popover && (
               <div className="flex flex-col justify-between absolute right-0 text-zinc-700 w-64 mr-5 h-60 mt-5 text-center bg-white rounded-lg shadow-lg p-2">
@@ -77,7 +75,7 @@ const Navbar: React.FC<Props> = ({ currentUser, menu, setMenu }: Props) => {
               </div>
             )}
           </div>
-          <UserProfile currentUser={currentUser} />
+          <UserProfile currentUser={currentUser} /> */}
         </div>
       </div>
     </div>

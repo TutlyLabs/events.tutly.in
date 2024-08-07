@@ -24,7 +24,7 @@ export default async function RootLayout({
     <SessionProvider
       refetchInterval={5 * 60}// 5 minutes
       session={session}>
-      <html lang="en" className="bg-background text-foreground">
+      <html lang="en" className="bg-white text-black">
         <body className={inter.className}>
           <Provider>{children}</Provider>
         </body>
