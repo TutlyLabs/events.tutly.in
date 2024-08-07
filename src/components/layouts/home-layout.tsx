@@ -1,10 +1,14 @@
 "use client";
+import { User } from "@/types/user";
+import { Suspense, useState } from "react";
+import Loading from "@/app/(dashboard)/loading";
 import Navbar from "../navbar/Navbar";
 import Sidebar from "../sidebar/sidebar";
 import { RxDashboard } from "react-icons/rx";
-import { Suspense, useState } from "react";
-import Loading from "@/app/(dashboard)/loading";
-import { User } from "@/types/user";
+import { SiCodeforces } from "react-icons/si";
+import { PiCodeBold } from "react-icons/pi";
+import { MdOutlineQueryStats } from "react-icons/md";
+
 
 export default function HomeLayout({
   children,
@@ -19,6 +23,21 @@ export default function HomeLayout({
       name: "Dashboard",
       icon: <RxDashboard />,
       path: "/",
+    },
+    {
+      name: "Contests",
+      icon: <SiCodeforces />,
+      path: "/upcoming_contests",
+    },
+    {
+      name: "Coding Profiles",
+      icon: <PiCodeBold />,
+      path: "/codingProfiles",
+    },
+    {
+      name: "Statistics",
+      icon: <MdOutlineQueryStats />,
+      path: "/ratings",
     },
   ];
   return (
