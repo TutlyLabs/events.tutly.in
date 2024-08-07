@@ -185,7 +185,7 @@ const data = [
 function Hackathon() {
   const [search, setSearch] = useState<String>("");
   return (
-    <div className="min-h-dvh bg-slate-100 px-32 py-4">
+    <div className="min-h-dvh px-32 py-4 text-black">
       <div className="flex justify-between items-center p-3 px-4 bg-white rounded-xl shadow-md">
         <div className="relative">
           <input

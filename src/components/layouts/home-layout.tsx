@@ -39,15 +39,20 @@ export default function HomeLayout({
       icon: <MdOutlineQueryStats />,
       path: "/ratings",
     },
+    {
+      name: "Hackathons",
+      icon: <MdOutlineQueryStats />,
+      path: "/hackathon",
+    },
   ];
   return (
-    <div>
+    <div className="w-full">
       <Navbar currentUser={currentUser} menu={menu} setMenu={setMenu} />
-      <div>
-        {/* <Sidebar items={items} menu={menu} setMenu={setMenu} /> */}
+      <div className="flex">
+        <Sidebar items={items} menu={menu} setMenu={setMenu} />
         <Suspense fallback={<Loading />}>
           <div
-            // className={`w-full ${menu ? "sm:pl-48" : "sm:pl-20"}`}
+            className={`w-full ${menu ? "sm:pl-48" : "sm:pl-20"}`}
           >
             {children}
           </div>
