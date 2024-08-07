@@ -9,7 +9,6 @@ const platforms: string[] = [
   "CodeChef",
   "LeetCode",
   "AtCoder",
-  "Hackerearth",
   "GeeksForGeeks",
 ];
 
@@ -19,7 +18,6 @@ const contestRatings:string[] = [
     "leetCodeRating",      
     "atCoderRating",       
     "geeksForGeeksRating", 
-    "HackerearthRating",   
 ]
 
 
@@ -29,7 +27,6 @@ export default function UserRatings() {
       CodeChef: string;
       LeetCode: string;
       AtCoder: string;
-      Hackerearth: string;
       GeeksForGeeks: string;
       id: string;
     }
@@ -44,7 +41,6 @@ export default function UserRatings() {
     "CodeChef": "",
     "LeetCode": "",
     "AtCoder": "",
-    "Hackerearth": "",
     "GeeksForGeeks": "",
     "id" :""
   });

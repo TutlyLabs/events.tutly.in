@@ -27,7 +27,6 @@ export const createUserCodingProfiles = async (usernames: {
         LeetCode : usernames?.Leetcode,
         AtCoder : usernames?.Atcoder,
         GeeksForGeeks : usernames?.Geeksforgeeks,
-        Hackerearth : usernames?.Hackerearth,
       },
     });
   } else {
@@ -39,7 +38,6 @@ export const createUserCodingProfiles = async (usernames: {
         LeetCode : usernames?.Leetcode,
         AtCoder : usernames?.Atcoder,
         GeeksForGeeks : usernames?.Geeksforgeeks,
-        Hackerearth : usernames?.Hackerearth,
       },
     });
   }
