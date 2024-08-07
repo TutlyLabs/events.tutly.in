@@ -10,7 +10,6 @@ const hostLogos: { [key: string]: string } = {
   "codeforces.com": "https://i.postimg.cc/xTmNrcq5/image.png",
   "codechef.com": "https://i.postimg.cc/66mCJkcW/image.png",
   "atcoder.jp": "https://i.postimg.cc/SjbsQfjr/image.png",
-  "hackerearth.com": "https://i.postimg.cc/x85jvJRG/image.png",
   "geeksforgeeks.org": "https://i.postimg.cc/hvq3mm92/image.png",
 };
 
@@ -20,7 +19,6 @@ const topBar = [
   { name: "Codeforces", value: "codeforces.com" },
   { name: "Codechef", value: "codechef.com" },
   { name: "Atcoder", value: "atcoder.jp" },
-  { name: "HackerEarth", value: "hackerearth.com" },
   { name: "GeeksforGeeks", value: "geeksforgeeks.org" },
 ];
 
@@ -98,7 +96,7 @@ export default function Home() {
 
   function convertToIST(dateString: string) {
     const date = new Date(dateString);
-    const istOffset = 5.5 * 60 * 60000;    
+    const istOffset = 0;
     
     return new Date(date.getTime() + istOffset);
   }
@@ -108,7 +106,7 @@ export default function Home() {
       <h1 className="text-4xl font-bold text-center mt-4 mb-4">
         Upcoming Contests
       </h1>
-      <div className="max-w-3xl mx-auto mb-8">
+      <div className="max-w-2xl mx-auto mb-8">
         <div className="bg-white shadow-md rounded-full p-1 flex justify-between items-center">
           {topBar.map((item: any) => (
             <button
@@ -203,7 +201,7 @@ export default function Home() {
                 </p>
                 <p className="text-sm text-gray-600 mb-4">
                   <span className="font-semibold">Duration:</span>{" "}
-                  {contest.duration / 60} minutes
+                  {contest.duration / (60 * 1000)} minutes
                 </p>
               </div>
               <CountdownTimer
