@@ -6,7 +6,7 @@ async function Hackathons() {
   const events = await getEvents();
   return (
     <div>
-      <Hackathon events={events}/>
+      <Hackathon events={events} type="HACKATHON"/>
     </div>
   )
 }

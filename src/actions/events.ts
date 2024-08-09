@@ -21,16 +21,9 @@ export const getEvent = async (id: string) => {
         where: {
             slug: id
         },
-        select:{
-            id: true,
-            name: true,
-            type: true,
-            tags: true,
-            fees: true,
-            startTime: true,
-            endTime: true,
-            host: true,
-            slug: true
+        include:{
+            rounds: true,
+            Prizes: true
         }
     })
     return res;

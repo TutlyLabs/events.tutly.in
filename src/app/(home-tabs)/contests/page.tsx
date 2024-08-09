@@ -1,9 +1,14 @@
-import React from 'react'
+import { getEvents } from '@/actions/events';
+import Hackathon from '@/components/hackathons';
+import React from 'react';
 
-function Contests() {
+async function Hackathons() {
+  const events = await getEvents();
   return (
-    <div className='min-h-dvh bg-slate-100 px-32'>Contests</div>
+    <div>
+      <Hackathon events={events} type="CONTEST"/>
+    </div>
   )
 }
 
-export default Contests
+export default Hackathons

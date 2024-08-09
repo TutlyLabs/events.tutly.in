@@ -1,4 +1,5 @@
 import { getEvent } from '@/actions/events';
+import Description from '@/components/Description.tsx';
 import React from 'react'
 
 async function page({ params }: { params: { id: string } }) {
@@ -6,7 +7,7 @@ async function page({ params }: { params: { id: string } }) {
     id=id.substring(2);
     const event = await getEvent(id);
   return (
-    <pre>{JSON.stringify(event,null,2)}</pre>
+    <Description event={event}/>
   )
 }
 

@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-function Hackathon({ events }: any) {
+function Hackathon({ events,type }: any) {
   const [search, setSearch] = useState<String>("");
   return (
     <div className="min-h-dvh px-32 py-4 text-black">
@@ -18,11 +18,12 @@ function Hackathon({ events }: any) {
               {events
                 .filter(
                   (item: any) =>
-                    item.type === "HACKATHON" &&
+                    item.type === type &&
                     item.name.toLowerCase().includes(search.toLowerCase())
                 )
                 .map((item: any, index: any) => (
-                  <div
+                  <Link
+                    href={`/event/${item.name}:${item.slug}`}
                     key={index}
                     className="flex justify-between p-2 px-4 items-center border-b hover:bg-white cursor-pointer hover:scale-y-105 duration-500 hover:shadow-sm"
                   >
@@ -31,11 +32,11 @@ function Hackathon({ events }: any) {
                       <h1 className="p-1 px-2">{item.name}</h1>
                     </div>
                     <div>Details</div>
-                  </div>
+                  </Link>
                 ))}
               {events.filter(
                 (item: any) =>
-                  item.type === "HACKATHON" &&
+                  item.type === type &&
                   item.name.toLowerCase().includes(search.toLowerCase())
               ).length == 0 && (
                 <h1 className="p-1 px-2 text-center py-4">No results found!</h1>
@@ -47,7 +48,7 @@ function Hackathon({ events }: any) {
       </div>
       <div className="flex gap-2 flex-wrap justify-between my-8">
         {events.map((item: any, index: any) => {
-          if (item.type !== "HACKATHON") return null;
+          if (item.type !== type) return null;
           return (
             <div
               key={index}
@@ -57,12 +58,12 @@ function Hackathon({ events }: any) {
                 <h1 className="text-2xl font-bold">{item.name}</h1>
                 <h1 className="text-xs">{item.type}</h1>
               </div>
-              <div className="flex justify-between items-end">
+              <div className="flex justify-between items-center">
                 <div>
                   <h1 className="text-sm py-2 text-slate-400 uppercase font-semibold">
                     Theme
                   </h1>
-                  <div className="flex gap-2 flex-wrap">
+                  <div className="flex gap-2 flex-wrap max-w-64 max-h-8 overflow-y-scroll">
                     {item.tags?.map((tag: any, index: any) => (
                       <p
                         key={index}
@@ -95,15 +96,20 @@ function Hackathon({ events }: any) {
                       Open
                     </h1>
                   )}
-                  {item.startTime&&<h1 className="p-2 px-3 rounded-lg bg-slate-100 text-sm font-semibold">
-                    Start Date : {item.startTime.toISOString().split("T")[0]}
-                  </h1>}
+                  {item.startTime && (
+                    <h1 className="p-2 px-3 rounded-lg bg-slate-100 text-sm font-semibold">
+                      Start Date : {item.startTime.toISOString().split("T")[0]}
+                    </h1>
+                  )}
                 </div>
                 <Link
                   href={`/event/${item.name}:${item.slug}`}
                   className="rounded p-2 px-4 bg-primary-600 text-white"
                 >
-                  {item.endTime&&item.endTime.toISOString() < new Date().toISOString() ? "View Details" : "Register now"}
+                  {item.endTime &&
+                  item.endTime.toISOString() < new Date().toISOString()
+                    ? "View Details"
+                    : "Register now"}
                 </Link>
               </div>
             </div>
