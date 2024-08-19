@@ -1,9 +1,13 @@
-import Description from "@/components/Description.tsx"
+"use client"
+import { useRouter } from "next/navigation";
+import { useEffect } from "react"
 const page = () => {
-
+  const router = useRouter();
+  useEffect(()=>{
+    router.push('/hackathon')
+  },[]);
   return (
     <div>
-      <Description/>
     </div>
   )
 }
