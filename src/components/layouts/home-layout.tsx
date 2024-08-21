@@ -21,49 +21,33 @@ export default function HomeLayout({
   const [menu, setMenu] = useState<boolean>(true);
   const items = [
     {
-      name: "Dashboard",
+      name: "Home",
       icon: <RxDashboard />,
       path: "/",
     },
     {
-      name: "Contests",
+      name: "Profile",
       icon: <HiUserGroup />,
-      path: "/upcoming_contests",
+      path: "/user/coding-profiles",
     },
     {
-      name: "Coding Profiles",
-      icon: <PiCodeBold />,
-      path: "/codingProfiles",
-    },
-    {
-      name: "Statistics",
-      icon: <MdOutlineQueryStats />,
-      path: "/ratings",
-    },
-    {
-      name: "Leaderboard",
-      icon: <MdLeaderboard />,
-      path: "/leaderboard",
-    },
-    {
-      name: "Hackathons",
-      icon: <MdOutlineQueryStats />,
-      path: "/hackathon",
-    },
+      name: "CP",
+      path: "/cp"
+    }
   ];
   return (
     <div className="w-full">
-      <Navbar currentUser={currentUser} menu={menu} setMenu={setMenu} />
-      <div className="flex">
-        <Sidebar items={items} menu={menu} setMenu={setMenu} />
+      <Navbar currentUser={currentUser} menu={menu} setMenu={setMenu} items={items} />
+      {/* <div className="flex"> */}
+        {/* <Sidebar items={items} menu={menu} setMenu={setMenu} /> */}
         <Suspense fallback={<Loading />}>
           <div
-            className={`w-full ${menu ? "sm:pl-48" : "sm:pl-20"}`}
+            className={`w-full`}
           >
             {children}
           </div>
         </Suspense>
-      </div>
+      {/* </div> */}
     </div>
   );
 }
