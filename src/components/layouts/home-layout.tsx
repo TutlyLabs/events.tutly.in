@@ -3,11 +3,8 @@ import { User } from "@/types/user";
 import { Suspense, useState } from "react";
 import Loading from "@/app/(dashboard)/loading";
 import Navbar from "../navbar/Navbar";
-import Sidebar from "../sidebar/sidebar";
 import { RxDashboard } from "react-icons/rx";
-import { PiCodeBold } from "react-icons/pi";
 import { MdOutlineQueryStats } from "react-icons/md";
-import { MdLeaderboard } from "react-icons/md";
 import { HiUserGroup } from "react-icons/hi";
 
 
@@ -32,6 +29,7 @@ export default function HomeLayout({
     },
     {
       name: "CP",
+      icon: <MdOutlineQueryStats />,
       path: "/cp"
     }
   ];
