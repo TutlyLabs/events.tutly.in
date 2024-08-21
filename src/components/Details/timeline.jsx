@@ -8,7 +8,7 @@ function Timeline({ rounds }) {
       <div className="absolute top-0 left-8 h-full w-0.5 bg-blue-400"></div>
       {rounds.map((round, index) => {
         return (
-          <div className="flex gap-4 flex-1 group">
+          <div key={index} className="flex gap-4 flex-1 group">
             <div className="flex flex-col h-full items-center bg-blue-100 p-4 w-16 rounded-full relative group-hover:bg-blue-200 transition duration-300">
               <MdOutlineAccessTime className="h-8 w-8 group-hover:text-blue-500 transition duration-300" />
             </div>
