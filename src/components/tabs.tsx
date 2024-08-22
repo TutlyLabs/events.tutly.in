@@ -3,30 +3,28 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import React from "react";
 
-function Tabs({tabs}:{
-  tabs: {name: string, href: string}[]
-}) {
+function Tabs({ tabs }: { tabs: { name: string; href: string }[] }) {
   const pathname = usePathname();
+
   return (
-    <div className="py-4 flex justify-center">
-      <div className="inline-block p-1 rounded bg-primary/50">
-        <div className="flex rounded justify-center gap-3">
-          {tabs.map((tab) => {
-            return (
-              <Link
-                className={`p-2 px-4 rounded uppercase text-sm tracking-wider font-semibold ${
+    <div className="max-w-2xl mx-auto mb-8 mt-5">
+      <div className="bg-white shadow-md rounded-full p-1 flex justify-between items-center overflow-hidden flex-wrap">
+        {tabs.map((tab) => {
+          return (
+            <Link
+              className={`
+                max-sm:text-xs text-sm font-medium py-2 px-4 rounded-full transition-all duration-300 ease-in-out ${
                   pathname === tab.href
-                    ? "bg-primary/80 text-white"
-                    : "hover:bg-primary/50 text-primary/80"
+                    ? "bg-blue-500 text-white shadow-md transform scale-105"
+                    : "text-gray-600 hover:bg-gray-200/50"
                 }`}
-                href={tab.href}
-                key={tab.href}
-              >
-                {tab.name}
-              </Link>
-            );
-          })}
-        </div>
+              href={tab.href}
+              key={tab.href}
+            >
+              {tab.name}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

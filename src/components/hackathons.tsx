@@ -1,10 +1,15 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
+import { CreateEventDialog } from "./CreateEvent";
 function Hackathon({ events, type }: any) {
   const [search, setSearch] = useState<String>("");
+
   return (
     <div className="min-h-dvh px-32 py-4 text-black">
+      <div className=" w-full flex flex-row-reverse my-5">
+        <CreateEventDialog />
+      </div>
       <div className="flex justify-between items-center p-3 px-4 bg-white rounded-xl shadow-md">
         <div className="relative">
           <input
@@ -64,12 +69,12 @@ function Hackathon({ events, type }: any) {
                     Theme
                   </h1>
                   <div className="flex gap-2 flex-wrap max-w-64 max-h-8 overflow-y-scroll">
-                    {item.tags?.map((tag: any, index: any) => (
+                    {item.tags?.map((tag: {id:string , name:string}, index: any) => (
                       <p
                         key={index}
                         className="p-0.5 border-2 border-slate-100 px-2 rounded-full"
                       >
-                        {tag}
+                        {tag.name}
                       </p>
                     ))}
                   </div>

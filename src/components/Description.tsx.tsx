@@ -17,9 +17,9 @@ function Description({ event }: { event: any }) {
   const [modal, setModal] = useState(false);
 
   const components: { [key: string]: JSX.Element } = {
-    Component1: <div>{event.description}</div>,
-    Component2: <Timeline rounds={event.rounds} />,
-    Component3: <Prizes prizes={event.Prizes} />,
+    Component1: <div>{event?.description}</div>,
+    Component2: <Timeline rounds={event?.rounds} />,
+    Component3: <Prizes prizes={event?.Prizes} />,
   };
   const [copyText, setCopyText] = useState("");
 
@@ -95,10 +95,12 @@ function Description({ event }: { event: any }) {
         <div className="w-1/3 flex flex-col">
           {/* Event details */}
           <div className="p-5 bg-white shadow-sm">
-            <h1 className="text-3xl font-semibold text-slate-700">{event.name}</h1>
+            <h1 className="text-3xl font-semibold text-slate-700">
+              {event?.name}
+            </h1>
             <div className="flex text-sm font-medium ml-2 gap-2 mt-4 items-center">
               <CgOrganisation className="h-6 w-5" />
-              <p>{event.host}</p>
+              <p>{event?.host}</p>
             </div>
             <div className="text-sm font-medium flex ml-2 gap-2 mt-4 items-center">
               <Image
@@ -108,7 +110,8 @@ function Description({ event }: { event: any }) {
                 alt="Calendar"
               />
               <p>
-                <b>Updated On:</b> {new Date(event.updatedAt).toUTCString().substring(0, 16)}
+                <b>Updated On :</b>{" "}
+                {event?.updatedAt.toUTCString().substring(0, 16)}
               </p>
             </div>
           </div>

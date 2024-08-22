@@ -14,15 +14,15 @@ export const metadata: Metadata = {
 
 const tabs = [
   {
-    name: "hackathons",
+    name: "Hackathons",
     href: "/hackathon",
   },
   {
-    name: "contests",
+    name: "Contests",
     href: "/contests",
   },
   {
-    name: "workshops",
+    name: "Workshops",
     href: "/workshops",
   },
 ];
