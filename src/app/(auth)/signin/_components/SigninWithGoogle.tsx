@@ -21,7 +21,7 @@ const SigninWithGoogle = () => {
     <div className=''>
       <h2 className="text-center mt-2 text-secondary-700 text-sm font-bold">Or</h2>
       <button onClick={(e) => { e.preventDefault(); loginWithGoogle() }} className='bg-gray-950 hover:bg-gray-800 text-white text-sm font-semibold my-2  rounded-lg w-full  '>
-        <div className='flex rounded-md justify-center items-center gap-5 p-2.5 relative bg-secondary-600 text-primary-50'>
+        <div className='flex rounded-md justify-center items-center gap-5 p-2.5 relative bg-secondary-600'>
           <div>
             <FcGoogle />
           </div>

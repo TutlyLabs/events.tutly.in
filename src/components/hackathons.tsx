@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-function Hackathon({ events,type }: any) {
+function Hackathon({ events, type }: any) {
   const [search, setSearch] = useState<String>("");
   return (
     <div className="min-h-dvh px-32 py-4 text-black">
@@ -104,7 +104,7 @@ function Hackathon({ events,type }: any) {
                 </div>
                 <Link
                   href={`/event/${item.name}:${item.slug}`}
-                  className="rounded p-2 px-4 bg-primary-600 text-white"
+                  className="rounded p-2 px-4 bg-primary text-white"
                 >
                   {item.endTime &&
                   item.endTime.toISOString() < new Date().toISOString()
