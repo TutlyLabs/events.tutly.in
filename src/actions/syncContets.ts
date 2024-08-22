@@ -7,7 +7,6 @@ const platforms = [
   "codechef.com",
   "leetcode.com",
   "atcoder.jp",
-  "hackerearth.com",
   "geeksforgeeks.org",
 ];
 

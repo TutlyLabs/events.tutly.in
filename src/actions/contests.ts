@@ -1,6 +1,14 @@
 import { db } from "../lib/db";
+import {
+  getCodeChefContests,
+  getCodeForcesContests,
+  getLeetCodeContests,
+  getUpcomingContests,
+} from "./conding-platforms-api";
 
 export const getAllContests = async () => {
+  return await getUpcomingContests()
+
   const res = await db.contests.findMany({
     where: {
       endTime: {
@@ -13,14 +21,22 @@ export const getAllContests = async () => {
 };
 
 export const getContestsByPlatform = async (platform: string) => {
-  const res = await db.contests.findMany({
-    where: {
-      host: platform,
-      endTime: {
-        gte: new Date().toISOString(),
-      },
-    },
-  });
+  // const res = await db.contests.findMany({
+  //   where: {
+  //     host: platform,
+  //     endTime: {
+  //       gte: new Date().toISOString(),
+  //     },
+  //   },
+  // });
 
-  return res;
+  if (platform === "codeforces.com") {
+    return await getCodeForcesContests();
+  } else if (platform === "codechef.com") {
+    return await getCodeChefContests();
+  } else if (platform === "leetcode.com") {
+    return await getLeetCodeContests();
+  } else {
+    return [];
+  }
 };

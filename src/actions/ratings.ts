@@ -1,4 +1,5 @@
 import { db } from "../lib/db";
+import getCurrentUser from "./getCurrentUser";
 
 const resources: { [key: string]: string } = {
   "Codeforces": "codeforces.com",
@@ -13,8 +14,10 @@ const api_key = process.env.CLIST_API_KEY;
 
 
 export const fetchRatings = async (username: string,platform:string) => {
-  if(username === ""){
-    throw new Error("Username is empty");
+  try{
+
+    if(username === ""){
+      throw new Error("Username is empty");
   }
 
   if(platform === 'LeetCode'){
@@ -29,11 +32,37 @@ export const fetchRatings = async (username: string,platform:string) => {
 
     const response = await fetch(url);
     const data = await response.json();
-
-
+    
+    
     if(data.meta.total_count === 0){
-        throw new Error("User not found");
+      throw new Error("User not found");
     }
-
+    
     return data.objects[0];
+  }
+  catch(error:any){
+    throw new Error(error.message);
+  }
 }
+
+
+export const getAllUsersRatings = async () => {
+  try {
+
+    const allRatings = await db.contestRatings.findMany({
+      select: {
+        user:true,
+        codeChefRating:true,
+        codeforcesRating:true,
+        leetCodeRating:true,
+        atCoderRating:true,
+        geeksForGeeksRating:true,
+      },
+    });
+    
+
+    return allRatings;
+  } catch (error:any) {
+    throw new Error(error.message);
+  }
+};
