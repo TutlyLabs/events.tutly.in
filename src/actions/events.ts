@@ -91,3 +91,13 @@ export async function generateUniqueSlug(name: string) {
 
   return slug;
 }
+
+export const getAllTags = async () => {
+  const res = await db.tag.findMany({
+    select: {
+      id: true,
+      name: true,
+    },
+  });
+  return res;
+}

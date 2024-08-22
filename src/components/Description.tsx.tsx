@@ -1,5 +1,5 @@
 "use client";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Prizes from "@/components/Details/prizes";
 import Timeline from "@/components/Details/timeline";
 import Faq from "@/components/Details/faq";
@@ -26,6 +26,7 @@ function Description({ event }: { event: any }) {
   useEffect(() => {
     setCopyText(window.location.href);
   }, []);
+
 
 
   async function copyToClipboard() {
@@ -56,7 +57,11 @@ function Description({ event }: { event: any }) {
           <div className="bg-white h-96 shadow-sm w-full">
             <Image
               className="h-full w-full object-cover"
-              src={event.href || "https://eventscal.lau.edu.lb/students/images/codebanner.jpg"}
+              src={
+                event.href ||
+                "https://eventscal.lau.edu.lb/students/images/codebanner.jpg"
+              }
+
               height={100}
               width={100}
               alt="banner"
@@ -65,19 +70,26 @@ function Description({ event }: { event: any }) {
 
           {/* Navigation tabs */}
           <div className="sticky top-0 flex items-center p-5 shadow-sm gap-6 text-zinc-600 h-20 bg-white z-10">
-            {["Component1", "Component2", "Component3"].map((component, index) => (
-              <h1
-                key={index}
-                className={`text-sm font-medium cursor-pointer p-2 px-3 rounded ${
-                  activeComponent === component
-                    ? "bg-primary text-white"
-                    : "hover:bg-slate-200"
-                }`}
-                onClick={() => setActiveComponent(component)}
-              >
-                {component === "Component1" ? "Details" : component === "Component2" ? "Timeline" : "Prizes"}
-              </h1>
-            ))}
+
+            {["Component1", "Component2", "Component3"].map(
+              (component, index) => (
+                <h1
+                  key={index}
+                  className={`text-sm font-medium cursor-pointer p-2 px-3 rounded ${
+                    activeComponent === component
+                      ? "bg-primary text-white"
+                      : "hover:bg-slate-200"
+                  }`}
+                  onClick={() => setActiveComponent(component)}
+                >
+                  {component === "Component1"
+                    ? "Details"
+                    : component === "Component2"
+                    ? "Timeline"
+                    : "Prizes"}
+                </h1>
+              )
+            )}
           </div>
 
           {/* Component content */}
