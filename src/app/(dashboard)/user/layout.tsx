@@ -55,7 +55,7 @@ function layout({
           {links.map((link) => (
             <Link
               href={`/user${link.path}`}
-              className="mx-2 hover:bg-primary-500 p-2 px-4 rounded flex items-center gap-2"
+              className="mx-2 hover:bg-primary p-2 px-4 rounded flex items-center gap-2"
               key={link.id}
             >
               <h1>ICON</h1>
