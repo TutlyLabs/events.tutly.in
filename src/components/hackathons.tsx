@@ -2,13 +2,20 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { CreateEventDialog } from "./CreateEvent";
-function Hackathon({ events, type }: any) {
+function Hackathon({ events, type,tags }: {
+  events: any;
+  type: any;
+  tags: {
+    id: string;
+    name: string;
+  }[];
+}) {
   const [search, setSearch] = useState<String>("");
 
   return (
     <div className="min-h-dvh px-32 py-4 text-black">
       <div className=" w-full flex flex-row-reverse my-5">
-        <CreateEventDialog />
+        <CreateEventDialog tags={tags} />
       </div>
       <div className="flex justify-between items-center p-3 px-4 bg-white rounded-xl shadow-md">
         <div className="relative">

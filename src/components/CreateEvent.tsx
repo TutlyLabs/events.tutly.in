@@ -14,7 +14,14 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export function CreateEventDialog() {
+export function CreateEventDialog({
+  tags,
+}: {
+  tags: {
+    id: string;
+    name: string;
+  }[];
+}) {
   const router = useRouter();
   const [form, setForm] = useState({
     name: "",
@@ -104,13 +111,20 @@ export function CreateEventDialog() {
             <Label htmlFor="type" className="text-right">
               Tags
             </Label>
-            <Input
-              id="tags"
-              placeholder="Enter tags separated by commas"
-              className="col-span-3 p-2 border rounded"
-              value={form.tags}
-              onChange={(e) => setForm({ ...form, tags: e.target.value })}
-            />
+            {
+              <select
+                id="tags"
+                value={form.tags}
+                onChange={(e) => setForm({ ...form, tags: e.target.value })}
+                className="col-span-3 p-2 border rounded"
+              >
+                {tags.map((tag) => (
+                  <option key={tag.id} value={tag.id}>
+                    {tag.name}
+                  </option>
+                ))}
+              </select>
+            }
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="type" className="text-right">
