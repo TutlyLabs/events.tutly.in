@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { FcClock } from "react-icons/fc";
@@ -123,7 +122,7 @@ export default function Home() {
     return new Date(date.getTime() + istOffset);
   }
 
-  const filteredData = data.filter((contest: any) => {
+  const filteredData = data?.filter((contest: any) => {
     if (!selectedTimeFrame) return true;
     const now = new Date();
     const start = convertToIST(contest.startTime);
@@ -133,10 +132,10 @@ export default function Home() {
   });
 
   return (
-    <div className="container m-auto p-4">
-      <h1 className="text-4xl font-bold text-center mt-4 mb-4">
+    <div className="container m-auto p-4 relative">
+      {/* <h1 className="text-4xl font-bold text-center mt-4 mb-4">
         Upcoming Contests
-      </h1>
+      </h1> */}
       <div className="max-w-2xl mx-auto mb-8">
         <div className="bg-white shadow-md rounded-full p-1 flex justify-between items-center overflow-hidden flex-wrap">
           {topBar.map((item: any) => (
@@ -156,16 +155,16 @@ export default function Home() {
             </button>
           ))}
         </div>
-        <div className="mt-4 flex justify-end items-center  ">
+        <div className="absolute right-2 top-4">
           <select
             onChange={(e) =>
               handleTimeFilterChange(parseInt(e.target.value) || null)
             }
-            className="border rounded-full px-4 py-2 bg-blue-500"
+            className="p-2 rounded-lg bg-slate-100 text-black font-semibold"
             defaultValue=""
           >
             <option value="" disabled>
-              Filter by time frame
+              Filters
             </option>
             {timeFilters.map((filter,index) => (
               <option key={filter.value} value={String(filter.value)}>

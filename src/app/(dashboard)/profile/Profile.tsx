@@ -59,7 +59,7 @@ const UserProfile = ({ currentUser }: { currentUser: User }) => {
                 </div>
             </form>
 
-            <div className="mt-5 flex flex-row-reverse justify-end  items-center  cursor-pointer bg-primary-500 hover:bg-primary-600 px-3 py-2 rounded-lg" >
+            <div className="mt-5 flex flex-row-reverse justify-end  items-center  cursor-pointer bg-primary hover:bg-primary/80 px-3 py-2 rounded-lg" >
                 <button  onClick={() => router.push('/profile/manage-password')} className="text-white " >
                     Manage Password
                 </button>

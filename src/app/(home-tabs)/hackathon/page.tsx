@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client";
 import { title } from "process";
 import React, { useState } from "react";
@@ -286,3 +287,19 @@ function Hackathon() {
 }
 
 export default Hackathon;
+=======
+import { getEvents } from '@/actions/events';
+import Hackathon from '@/components/hackathons';
+import React from 'react';
+
+async function Hackathons() {
+  const events = await getEvents();
+  return (
+    <div>
+      <Hackathon events={events} type="HACKATHON"/>
+    </div>
+  )
+}
+
+export default Hackathons
+>>>>>>> 92e54934d30d74443c43358fb31f6ee5ad3eb2a6

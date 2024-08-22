@@ -1,11 +1,7 @@
-import Description from "@/components/Description.tsx"
+import { redirect} from "next/navigation";
 const page = () => {
+  redirect("/hackathon");
+  return <div></div>;
+};
 
-  return (
-    <div>
-      <Description/>
-    </div>
-  )
-}
-
-export default page
+export default page;
