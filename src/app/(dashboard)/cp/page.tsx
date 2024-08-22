@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { FcClock } from "react-icons/fc";
 import { GoArrowUpRight } from "react-icons/go";
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/TabBar";
 
 const hostLogos: { [key: string]: string } = {
   "leetcode.com": "https://i.postimg.cc/Qd5QqfpX/image.png",
@@ -74,7 +74,6 @@ export default function Home() {
     setLoading(true);
     fetchData();
   }, [platform]);
-
 
   const handleTimeFilterChange = (value: number | null) => {
     setSelectedTimeFrame(value);

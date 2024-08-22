@@ -1,8 +1,10 @@
+'use client';
+
 import React, { useState } from "react";
 
-function Navbar({
+function TabBar({
   topBar,
-  setTab,
+  setTab
 }: {
   topBar: {
     name: string;
@@ -19,7 +21,7 @@ function Navbar({
 
   return (
     <div className="bg-white shadow-md rounded-full p-1 flex justify-between items-center overflow-hidden flex-wrap">
-      {topBar.map((item: any) => (
+      {topBar.map((item: { name: string; value: string }) => (
         <button
           key={item.name}
           onClick={() => handleTabChange(item.value)}
@@ -39,4 +41,4 @@ function Navbar({
   );
 }
 
-export default Navbar;
+export default TabBar;

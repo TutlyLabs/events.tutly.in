@@ -17,9 +17,9 @@ function Description({ event }: { event: any }) {
   const [modal, setModal] = useState(false);
 
   const components: { [key: string]: JSX.Element } = {
-    Component1: <div>{event.description}</div>,
-    Component2: <Timeline rounds={event.rounds} />,
-    Component3: <Prizes prizes={event.Prizes} />,
+    Component1: <div>{event?.description}</div>,
+    Component2: <Timeline rounds={event?.rounds} />,
+    Component3: <Prizes prizes={event?.Prizes} />,
   };
   const [copyText, setCopyText] = useState("");
 
@@ -40,7 +40,7 @@ function Description({ event }: { event: any }) {
 
   const calculateDaysLeft = () => {
     const now = Date.now();
-    const deadline = new Date(event.endTime).getTime();
+    const deadline = new Date(event?.endTime).getTime();
     const daysLeft = Math.ceil((deadline - now) / (1000 * 60 * 60 * 24));
     return daysLeft > 0 ? daysLeft : 0;
   };
@@ -89,6 +89,27 @@ function Description({ event }: { event: any }) {
           <div className="flex-1 bg-white p-4 shadow-sm">
             <Faq />
           </div>
+    <div className="px-12 bg-gray-100 pt-8 mx-auto dark:bg-primary">
+      {/* top image bar */}
+      {event?.href ? (
+        <div className="bg-white h-96 shadow-sm w-full">
+          <Image
+            className="h-full w-full"
+            src={event?.href}
+            height={100}
+            width={100}
+            alt="banner"
+          />
+        </div>
+      ) : (
+        <div className="bg-white h-96 shadow-sm w-full">
+          <Image
+            className="h-full w-full"
+            src="https://eventscal.lau.edu.lb/students/images/codebanner.jpg"
+            height={100}
+            width={100}
+            alt="banner"
+          />
         </div>
 
         {/* Right sidebar */}
@@ -98,7 +119,7 @@ function Description({ event }: { event: any }) {
             <h1 className="text-3xl font-semibold text-slate-700">{event.name}</h1>
             <div className="flex text-sm font-medium ml-2 gap-2 mt-4 items-center">
               <CgOrganisation className="h-6 w-5" />
-              <p>{event.host}</p>
+              <p>{event?.host}</p>
             </div>
             <div className="text-sm font-medium flex ml-2 gap-2 mt-4 items-center">
               <Image
@@ -108,7 +129,7 @@ function Description({ event }: { event: any }) {
                 alt="Calendar"
               />
               <p>
-                <b>Updated On:</b> {new Date(event.updatedAt).toUTCString().substring(0, 16)}
+                <b>Updated On:</b> {new Date(event?.updatedAt).toUTCString().substring(0, 16)}
               </p>
             </div>
           </div>
