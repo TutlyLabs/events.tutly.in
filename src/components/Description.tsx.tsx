@@ -10,7 +10,7 @@ import Image from "next/image";
 import { MdOutlineAccessTime } from "react-icons/md";
 import { CgOrganisation } from "react-icons/cg";
 import { RxCross2 } from "react-icons/rx";
-import { toast, Toaster } from "react-hot-toast";
+import {toast,Toaster} from "react-hot-toast";
 
 function Description({ event }: { event: any }) {
   const [activeComponent, setActiveComponent] = useState("Component1");
@@ -27,10 +27,12 @@ function Description({ event }: { event: any }) {
     setCopyText(window.location.href);
   }, []);
 
+
+
   async function copyToClipboard() {
     try {
       await navigator.clipboard.writeText(copyText);
-      toast.success("Link Copied !!");
+      toast.success("Link Copied !!")
       setModal(false);
     } catch (err) {
       console.error("Failed to copy text: ", err);
@@ -59,6 +61,7 @@ function Description({ event }: { event: any }) {
                 event.href ||
                 "https://eventscal.lau.edu.lb/students/images/codebanner.jpg"
               }
+
               height={100}
               width={100}
               alt="banner"
@@ -67,6 +70,7 @@ function Description({ event }: { event: any }) {
 
           {/* Navigation tabs */}
           <div className="sticky top-0 flex items-center p-5 shadow-sm gap-6 text-zinc-600 h-20 bg-white z-10">
+
             {["Component1", "Component2", "Component3"].map(
               (component, index) => (
                 <h1
@@ -147,18 +151,12 @@ function Description({ event }: { event: any }) {
               <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
                 <div className="flex items-center gap-4 bg-white p-4 rounded-lg shadow-lg text-center">
                   <p className="font-bold">{copyText}</p>
-                  <button
-                    onClick={copyToClipboard}
-                    className="bg-blue-500 p-2 text-white rounded-md"
-                  >
+                  <button onClick={copyToClipboard} className="bg-blue-500 p-2 text-white rounded-md">
                     Copy Link
                   </button>
                   <Toaster />
-                  <div
-                    onClick={() => setModal(false)}
-                    className="bg-blue-500 p-2 text-white rounded-md"
-                  >
-                    <RxCross2 className="h-6 w-6" />
+                  <div onClick={()=>setModal(false)} className="bg-blue-500 p-2 text-white rounded-md">
+                    <RxCross2 className="h-6 w-6"/>
                   </div>
                 </div>
               </div>
