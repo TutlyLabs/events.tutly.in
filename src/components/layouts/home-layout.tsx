@@ -7,7 +7,6 @@ import { RxDashboard } from "react-icons/rx";
 import { MdOutlineQueryStats } from "react-icons/md";
 import { HiUserGroup } from "react-icons/hi";
 
-
 export default function HomeLayout({
   children,
   currentUser,
@@ -30,21 +29,27 @@ export default function HomeLayout({
     {
       name: "CP",
       icon: <MdOutlineQueryStats />,
-      path: "/cp"
-    }
+      path: "/cp",
+    },
+    {
+      name: "CP Leaderboard",
+      icon: <MdOutlineQueryStats />,
+      path: "/leaderboard",
+    },
   ];
   return (
     <div className="w-full">
-      <Navbar currentUser={currentUser} menu={menu} setMenu={setMenu} items={items} />
+      <Navbar
+        currentUser={currentUser}
+        menu={menu}
+        setMenu={setMenu}
+        items={items}
+      />
       {/* <div className="flex"> */}
-        {/* <Sidebar items={items} menu={menu} setMenu={setMenu} /> */}
-        <Suspense fallback={<Loading />}>
-          <div
-            className={`w-full`}
-          >
-            {children}
-          </div>
-        </Suspense>
+      {/* <Sidebar items={items} menu={menu} setMenu={setMenu} /> */}
+      <Suspense fallback={<Loading />}>
+        <div className={`w-full`}>{children}</div>
+      </Suspense>
       {/* </div> */}
     </div>
   );
