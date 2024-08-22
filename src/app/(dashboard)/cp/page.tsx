@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { FcClock } from "react-icons/fc";
 import { GoArrowUpRight } from "react-icons/go";
+import Navbar from "@/components/Navbar";
 
 const hostLogos: { [key: string]: string } = {
   "leetcode.com": "https://i.postimg.cc/Qd5QqfpX/image.png",
@@ -74,9 +75,6 @@ export default function Home() {
     fetchData();
   }, [platform]);
 
-  const handleChange = (e: string) => {
-    setPlatform(e);
-  };
 
   const handleTimeFilterChange = (value: number | null) => {
     setSelectedTimeFrame(value);
@@ -137,24 +135,7 @@ export default function Home() {
         Upcoming Contests
       </h1> */}
       <div className="max-w-2xl mx-auto mb-8">
-        <div className="bg-white shadow-md rounded-full p-1 flex justify-between items-center overflow-hidden flex-wrap">
-          {topBar.map((item: any) => (
-            <button
-              key={item.name}
-              onClick={() => handleChange(item.value)}
-              className={`
-                max-sm:text-xs text-sm font-medium py-2 px-4 rounded-full transition-all duration-300 ease-in-out
-                ${
-                  platform === item.value
-                    ? "bg-blue-500 text-white shadow-md transform scale-105"
-                    : "text-gray-600 hover:bg-gray-200/50"
-                }
-              `}
-            >
-              {item.name}
-            </button>
-          ))}
-        </div>
+        <Navbar topBar={topBar} setTab={setPlatform} />
         <div className="absolute right-2 top-4">
           <select
             onChange={(e) =>
@@ -166,7 +147,7 @@ export default function Home() {
             <option value="" disabled>
               Filters
             </option>
-            {timeFilters.map((filter,index) => (
+            {timeFilters.map((filter, index) => (
               <option key={filter.value} value={String(filter.value)}>
                 {filter.name}
               </option>
