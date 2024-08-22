@@ -1,5 +1,5 @@
 "use client";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Prizes from "@/components/Details/prizes";
 import Timeline from "@/components/Details/timeline";
 import Faq from "@/components/Details/faq";
@@ -28,6 +28,7 @@ function Description({ event }: { event: any }) {
   }, []);
 
 
+
   async function copyToClipboard() {
     try {
       await navigator.clipboard.writeText(copyText);
@@ -40,7 +41,7 @@ function Description({ event }: { event: any }) {
 
   const calculateDaysLeft = () => {
     const now = Date.now();
-    const deadline = new Date(event?.endTime).getTime();
+    const deadline = new Date(event.endTime).getTime();
     const daysLeft = Math.ceil((deadline - now) / (1000 * 60 * 60 * 24));
     return daysLeft > 0 ? daysLeft : 0;
   };
@@ -56,7 +57,11 @@ function Description({ event }: { event: any }) {
           <div className="bg-white h-96 shadow-sm w-full">
             <Image
               className="h-full w-full object-cover"
-              src={event.href || "https://eventscal.lau.edu.lb/students/images/codebanner.jpg"}
+              src={
+                event.href ||
+                "https://eventscal.lau.edu.lb/students/images/codebanner.jpg"
+              }
+
               height={100}
               width={100}
               alt="banner"
@@ -65,19 +70,26 @@ function Description({ event }: { event: any }) {
 
           {/* Navigation tabs */}
           <div className="sticky top-0 flex items-center p-5 shadow-sm gap-6 text-zinc-600 h-20 bg-white z-10">
-            {["Component1", "Component2", "Component3"].map((component, index) => (
-              <h1
-                key={index}
-                className={`text-sm font-medium cursor-pointer p-2 px-3 rounded ${
-                  activeComponent === component
-                    ? "bg-primary text-white"
-                    : "hover:bg-slate-200"
-                }`}
-                onClick={() => setActiveComponent(component)}
-              >
-                {component === "Component1" ? "Details" : component === "Component2" ? "Timeline" : "Prizes"}
-              </h1>
-            ))}
+
+            {["Component1", "Component2", "Component3"].map(
+              (component, index) => (
+                <h1
+                  key={index}
+                  className={`text-sm font-medium cursor-pointer p-2 px-3 rounded ${
+                    activeComponent === component
+                      ? "bg-primary text-white"
+                      : "hover:bg-slate-200"
+                  }`}
+                  onClick={() => setActiveComponent(component)}
+                >
+                  {component === "Component1"
+                    ? "Details"
+                    : component === "Component2"
+                    ? "Timeline"
+                    : "Prizes"}
+                </h1>
+              )
+            )}
           </div>
 
           {/* Component content */}
@@ -89,34 +101,15 @@ function Description({ event }: { event: any }) {
           <div className="flex-1 bg-white p-4 shadow-sm">
             <Faq />
           </div>
-    <div className="px-12 bg-gray-100 pt-8 mx-auto dark:bg-primary">
-      {/* top image bar */}
-      {event?.href ? (
-        <div className="bg-white h-96 shadow-sm w-full">
-          <Image
-            className="h-full w-full"
-            src={event?.href}
-            height={100}
-            width={100}
-            alt="banner"
-          />
-        </div>
-      ) : (
-        <div className="bg-white h-96 shadow-sm w-full">
-          <Image
-            className="h-full w-full"
-            src="https://eventscal.lau.edu.lb/students/images/codebanner.jpg"
-            height={100}
-            width={100}
-            alt="banner"
-          />
         </div>
 
         {/* Right sidebar */}
         <div className="w-1/3 flex flex-col">
           {/* Event details */}
           <div className="p-5 bg-white shadow-sm">
-            <h1 className="text-3xl font-semibold text-slate-700">{event.name}</h1>
+            <h1 className="text-3xl font-semibold text-slate-700">
+              {event?.name}
+            </h1>
             <div className="flex text-sm font-medium ml-2 gap-2 mt-4 items-center">
               <CgOrganisation className="h-6 w-5" />
               <p>{event?.host}</p>
@@ -129,7 +122,8 @@ function Description({ event }: { event: any }) {
                 alt="Calendar"
               />
               <p>
-                <b>Updated On:</b> {new Date(event?.updatedAt).toUTCString().substring(0, 16)}
+                <b>Updated On :</b>{" "}
+                {event?.updatedAt.toUTCString().substring(0, 16)}
               </p>
             </div>
           </div>
