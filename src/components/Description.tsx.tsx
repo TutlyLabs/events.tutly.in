@@ -14,26 +14,25 @@ function Description({ event }: { event: any }) {
   const [activeComponent, setActiveComponent] = useState("Component1");
 
   const components: { [key: string]: JSX.Element } = {
-    Component1: <div>{event.description}</div>,
-    Component2: <Timeline rounds={event.rounds} />,
-    Component3: <Prizes prizes={event.Prizes} />,
+    Component1: <div>{event?.description}</div>,
+    Component2: <Timeline rounds={event?.rounds} />,
+    Component3: <Prizes prizes={event?.Prizes} />,
   };
   const calculateDaysLeft = () => {
     const now = Date.now();
-    const deadline = new Date(event.endTime).getTime();
+    const deadline = new Date(event?.endTime).getTime();
     const daysLeft = Math.ceil((deadline - now) / (1000 * 60 * 60 * 24)); // Round up to nearest whole day
     return daysLeft > 0 ? daysLeft : 0; // Return 0 if deadline has passed
   };
   const daysLeft = calculateDaysLeft();
   return (
     <div className="px-12 bg-gray-100 pt-8 mx-auto dark:bg-primary">
-      {/* <pre className='text-black'>{JSON.stringify(event, null, 2)}</pre> */}
       {/* top image bar */}
       {event?.href ? (
         <div className="bg-white h-96 shadow-sm w-full">
           <Image
             className="h-full w-full"
-            src={event.href}
+            src={event?.href}
             height={100}
             width={100}
             alt="banner"
@@ -55,11 +54,11 @@ function Description({ event }: { event: any }) {
         <div className="flex flex-col gap-2 w-2/3 h-screen overflow-y-auto">
           <div className="p-5 bg-white shadow-sm">
             <h1 className="text-3xl font-semibold text-slate-700">
-              {event.name}
+              {event?.name}
             </h1>
             <div className="flex text-sm font-medium ml-2 gap-2 mt-4 items-center">
               <CgOrganisation className="h-6 w-5" />
-              <p>{event.host}</p>
+              <p>{event?.host}</p>
             </div>
             <div className="text-sm font-medium flex ml-2 gap-2 mt-4 items-center">
               <Image
@@ -70,7 +69,7 @@ function Description({ event }: { event: any }) {
               />
               <p>
                 <b>Updated On :</b>{" "}
-                {event.updatedAt.toUTCString().substring(0, 16)}
+                {event?.updatedAt.toUTCString().substring(0, 16)}
               </p>
             </div>
           </div>
@@ -139,8 +138,8 @@ function Description({ event }: { event: any }) {
                 <p className="text-xs text-slate-500">Team size</p>
                 <p className="text-sm font-medium">
                   {event.minTeamSize === event.maxTeamSize
-                    ? event.minTeamSize
-                    : event.minTeamSize + " - " + event.maxTeamSize}
+                    ? event?.minTeamSize
+                    : event?.minTeamSize + " - " + event?.maxTeamSize}
                 </p>
               </div>
             </div>

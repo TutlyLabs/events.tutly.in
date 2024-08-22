@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -25,7 +25,6 @@ interface LeaderboardProps {
 }
 
 const Leaderboard: React.FC<LeaderboardProps> = ({ entries }) => {
-  
   const getTotalRating = (entry: LeaderboardEntry): number => {
     return (
       (entry.codeChefRating || 0) +
@@ -41,7 +40,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ entries }) => {
   );
 
   return (
-    <div className="max-w-7xl mx-auto max-sm:px-4 ">
+    <div className="max-w-7xl mx-auto max-sm:px-4 mt-8">
       <h1 className="text-4xl font-bold text-center mb-8 bg-gradient-to-r bg-clip-text text-transparent from-sky-400 via-blue-500 to-indigo-600 ">
         Coding Leaderboard
       </h1>

@@ -1,5 +1,4 @@
 import { createUserCodingProfiles } from "@/actions/codingProfiles";
-import getCurrentUser from "@/actions/getCurrentUser";
 import { NextResponse,NextRequest } from "next/server";
 
 export  async function POST(req: NextRequest) {
