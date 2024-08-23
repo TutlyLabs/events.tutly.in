@@ -118,7 +118,7 @@ export function CreateEventDialog({
                 onChange={(e) => setForm({ ...form, tags: e.target.value })}
                 className="col-span-3 p-2 border rounded"
               >
-                {tags.map((tag) => (
+                {tags?.map((tag) => (
                   <option key={tag.id} value={tag.id}>
                     {tag.name}
                   </option>

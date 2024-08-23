@@ -3,7 +3,7 @@ import { useState } from "react";
 import { MdOutlineAccessTime } from "react-icons/md";
 import { LuPlusCircle } from "react-icons/lu";
 import { useForm } from "react-hook-form";
-import { RxCross2 } from "react-icons/rx";
+import { MdLocationPin } from "react-icons/md";
 
 function Timeline({ rounds }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -18,22 +18,15 @@ function Timeline({ rounds }) {
   };
 
   return (
-    <div className="relative flex flex-col gap-6 font-oswald">
+    <div className="relative flex flex-col gap-12 font-oswald">
       <div className="flex w-full justify-end">
         <LuPlusCircle className="w-6 h-6 cursor-pointer" onClick={handleModalOpen} />
       </div>
 
       {/* Modal Form */}
       {modalIsOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-8 rounded-lg shadow-2xl max-w-4xl w-[60vw] relative">
-            <button
-              type="button"
-              onClick={handleModalClose}
-              className="absolute top-4 right-4"
-            >
-              <RxCross2 className="w-6 h-6" />
-            </button>
             <form onSubmit={handleSubmit(onFormSubmit)} className="w-full">
               <div className="flex flex-wrap gap-6">
                 <div className="relative flex-1 min-w-[200px]">
@@ -107,31 +100,40 @@ function Timeline({ rounds }) {
       )}
 
       {/* Display Rounds */}
-      {rounds.map((round, index) => (
-        <div key={index} className="flex gap-4 flex-1 group">
-          <div className="flex flex-col h-full items-center bg-gradient-to-b from-blue-200 to-purple-200 p-4 w-16 rounded-full relative group-hover:from-blue-300 group-hover:to-purple-300 transition duration-300">
-            <MdOutlineAccessTime className="h-8 w-8 text-blue-600 group-hover:text-purple-600 transition duration-300" />
-          </div>
-          <div className="flex flex-col gap-2 p-6 bg-white rounded-lg shadow-lg group-hover:shadow-xl transition duration-300 w-full">
-            <div className="flex justify-between items-center">
-              <p className="text-lg font-semibold text-blue-600">{round.name}</p>
-              <p className="font-semibold text-sm">
-                <span className="font-bold text-lg">•</span>{round.mode}
+      {rounds.map((round, index) => {
+        return (
+          <div key={index} className="flex gap-4 items-start mt-8">
+            <div className="relative flex flex-col items-center">
+              <div className="bg-blue-500 text-white rounded-full flex items-center justify-center group-hover:bg-blue-600 transition duration-300">
+                <MdOutlineAccessTime className="h-5 w-5" />
+              </div>
+              {index < rounds.length - 1 && (
+                <div className="absolute top-full w-0.5 bg-blue-400"></div>
+              )}
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+              <div className="flex justify-between items-center">
+                <p className="text-lg font-semibold text-blue-600">{round.name}</p>
+                <p className="flex items-center gap-2 text-sm">
+                  <span><MdLocationPin className="h-4 w-4 text-red-600"/></span> {round.mode}
+                </p>
+              </div>
+              <h1 className="text-sm font-medium text-gray-600">
+                Start date: {round.startTime ? new Date(round.startTime).toLocaleString() : "-"}
+              </h1>
+              <h1 className="text-sm font-medium text-gray-600">
+                End date: {round.endTime ? new Date(round.endTime).toLocaleString() : "-"}
+              </h1>
+              <h1 className="text-sm font-medium text-gray-600">
+                Venue: {round.venue ? round.venue : "-"}
+              </h1>
+              <p className="text-gray-500 text-justify">{round.description}
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic architecto porro a rem, corrupti laboriosam, libero quod nihil nemo maxime explicabo odio, fugiat pariatur. Eaque totam impedit a molestiae odio temporibus aliquid labore minus! Voluptatem nobis, ipsum fugit quam excepturi optio recusandae praesentium, at nostrum dignissimos ducimus porro, inventore natus? Voluptas nihil sapiente perferendis. Minima deleniti, praesentium incidunt corrupti perferendis exercitationem consequatur, esse magni voluptatum molestias veritatis, placeat eos aliquid assumenda cum provident debitis officiis quod itaque voluptatibus dolore deserunt quasi! Voluptatem tempora, optio veniam illum ducimus, reprehenderit praesentium cumque, qui officiis perferendis illo quis deserunt. Eos sit id doloribus!
               </p>
             </div>
-            <h1 className="text-sm font-medium text-gray-600">
-              Start date: {round.startTime ? new Date(round.startTime).toLocaleString() : "-"}
-            </h1>
-            <h1 className="text-sm font-medium text-gray-600">
-              End date: {round.endTime ? new Date(round.endTime).toLocaleString() : "-"}
-            </h1>
-            <h1 className="text-sm font-medium text-gray-600">
-              Venue: {round.venue ? round.venue : "-"}
-            </h1>
-            <p className="text-gray-500">{round.description}</p>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

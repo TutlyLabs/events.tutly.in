@@ -59,7 +59,7 @@ const Navbar: React.FC<Props> = ({ currentUser, menu, setMenu, items }: Props) =
                 <Link
                   href={item.path}
                   key={item.id}
-                  className="p-2 rounded-full dark:hover:bg-secondary-800 hover:bg-neutral-300 cursor-pointer"
+                  className="p-2 rounded-md dark:hover:bg-secondary-800 hover:bg-neutral-300 cursor-pointer"
                 >
                   {item.name}
                 </Link>
